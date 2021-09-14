@@ -22,7 +22,7 @@ const Account = () => {
                                 
                                 <div class="card-body">
                                     <a href="link.php">
-                                        <img src="/assets/img/brand/white.jpg" class="img-center" style={{width: '200px'}} alt="placeholder" />
+                                        <img src="/assets/img/brand/white.png" class="img-center" style={{width: '200px'}} alt="placeholder" />
                                     </a>
                                     <div class="pt-4 text-center">
                                         <h5 class="h3 title">

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 class Register extends React.Component{
     constructor(props){
@@ -6,18 +7,17 @@ class Register extends React.Component{
         this.state = {
             allUsers: [],
             addUser : {
-                firstName: '',
-                lastName : '',
-                username : '',
-                email    : '',
-                password : '',
-                password : '',
-                dob      : '',
-                gender   : '',
-                city     : '',
-                id       : '0'
-            },
-            isUpdated: false
+                firstName      : '',
+                lastName       : '',
+                username       : '',
+                email          : '',
+                password       : '',
+                confirmPassword: '',
+                dob            : '',
+                gender         : '',
+                city           : '',
+                id             : '0'
+            }
         }
         this.handleChange     = this.handleChange.bind(this)
         this.handleAddUser    = this.handleAddUser.bind(this)
@@ -33,26 +33,31 @@ class Register extends React.Component{
     }
     
     handleAddUser() {
-        // console.log(this.state.addUser)
-        fetch('http://localhost:8080/api/users/addUser', {
-            method : 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state.addUser)
-        }).then(this.setState({
-            addUser: {
-                firstName: '',
-                lastName : '',
-                username : '',
-                email    : '',
-                password : '',
-                password : '',
-                dob      : '',
-                gender   : '',
-                city     : '',
-            }
-        }))
+        if(this.state.addUser.password === this.state.addUser.confirmPassword){
+            // console.log(this.state.addUser)
+            fetch('http://localhost:8080/api/users/addUser', {
+                method : 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.state.addUser)
+            }).then(this.setState({
+                addUser: {
+                    firstName      : '',
+                    lastName       : '',
+                    username       : '',
+                    email          : '',
+                    password       : '',
+                    confirmPassword: '',
+                    dob            : '',
+                    gender         : '',
+                    city           : '',
+                }
+            }))
+        }
+        else{
+            alert('Password Does not Match')
+        }
     }
 
     render(){
@@ -117,13 +122,13 @@ class Register extends React.Component{
                                             <div className="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="">Password*</label>
-                                                    <input type="password" class="my-form-control" placeholder="Enter Your Password" name="password" value={this.state.addUser.} onChange={this.handleChange} />
+                                                    <input type="password" class="my-form-control" placeholder="Enter Your Password" name="password" value={this.state.addUser.password} onChange={this.handleChange} />
                                                 </div>
                                             </div>
                                             <div className="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="">Confirm Password*</label>
-                                                    <input type="password" class="my-form-control" placeholder="Confirm Your Password" name="confirmPassword" value={this.state.addUser.} onChange={this.handleChange} />
+                                                    <input type="password" class="my-form-control" placeholder="Confirm Your Password" name="confirmPassword" value={this.state.addUser.confirmPassword} onChange={this.handleChange} />
                                                 </div>
                                             </div>
                                         </div>
@@ -135,10 +140,10 @@ class Register extends React.Component{
                                             <label for="">Gender*</label>
                                             <div class="option">
                                                 <div class="s-input mr-3">
-                                                    <input type="radio" name="gender" value={this.state.addUser.gender} onChange={this.handleChange}  id="male" /><label for="male">Male</label>
+                                                    <input type="radio" name="gender" value="male" onChange={this.handleChange}  id="male" /><label htmlFor="male">Male</label>
                                                 </div>
                                                 <div class="s-input">
-                                                    <input type="radio" name="gender" value={this.state.addUser.gender} onChange={this.handleChange}  id="female" /><label for="female">Female</label>
+                                                    <input type="radio" name="gender" value="female" onChange={this.handleChange}  id="female" /><label htmlFor="female">Female</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,8 +151,7 @@ class Register extends React.Component{
                                             <label for="">City*</label>
                                             <input type="text" class="my-form-control" placeholder="Enter Your City" name="city" value={this.state.addUser.city} onChange={this.handleChange} />
                                         </div>
-                                        <button class="custom-button" data-toggle="modal" data-target="#email-confirm">Create Your
-                                        Profile</button>
+                                        <button type="submit" class="custom-button" data-toggle="modal" data-target="#email-confirm" onClick={this.handleAddUser}>Create Your Profile</button>
                                     </form>
                                 </div>
                             </div>

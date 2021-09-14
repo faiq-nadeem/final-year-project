@@ -199,7 +199,7 @@ class SubCategory extends React.Component{
                                             
                                             <li className="list-group-item px-0">
                                                 <div className="row align-items-center">
-                                                    <img src="/assets/img/brand/white.jpg" style={{width: '50px', borderRadius:'10px'}} alt="user" />
+                                                    <img src="/assets/img/brand/white.png" style={{width: '50px', borderRadius:'10px'}} alt="user" />
                                                     <div className="col ml--2">
                                                         <h4 className="mb-0">
                                                             {subCategory.name}

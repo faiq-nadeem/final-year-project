@@ -178,15 +178,16 @@ app.post('/api/users/addUser', upload.single("userImage"), (req, resp) => {
     res.forEach(obj => {
         if(obj){
             let user = {
-                id         : obj.id + 1,
-                name       : req.body.name,
-                username   : req.body.username,
-                email      : req.body.email,
-                phone      : req.body.phone,
-                password   : req.body.password,
-                address    : req.body.address,
-                description: req.body.description,
-                userImage  : req.file.originalname
+                id       : obj.id + 1,
+                firstName: req.body.firstName,
+                lastName : req.body.lastName,
+                username : req.body.username,
+                email    : req.body.email,
+                password : req.body.password,
+                dob      : req.body.dob,
+                gender   : req.body.gender,
+                city     : req.body.city,
+                credits  : 0
             }
             database.collection('users').insertOne(user, (err, result) => {
                 if(err) resp.status(500).send(err)
@@ -229,14 +230,16 @@ app.post('/api/users/addUser', upload.single("userImage"), (req, resp) => {
 
 app.put('/api/users:id', (req, resp) => {
     let user   = {
-        id         : parseInt(req.params.id),
-        name       : req.body.name,
-        username   : req.body.username,
-        email      : req.body.email,
-        phone      : req.body.phone,
-        password   : req.body.password,
-        address    : req.body.address,
-        description: req.body.description,
+        id       : parseInt(req.params.id),
+        firstName: req.body.firstName,
+        lastName : req.body.lastname,
+        username : req.body.username,
+        email    : req.body.email,
+        password : req.body.password,
+        dob      : req.body.dob,
+        gender   : req.body.gender,
+        city     : req.body.city,
+        credits  : req.body.credits
     }
 
     database.collection('users').updateOne(

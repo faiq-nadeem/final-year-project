@@ -231,7 +231,7 @@ class Advisors extends React.Component{
                                             {this.state.allAdvisors.map(user => (
                                                 <tr>
                                                     <td className="align-middle" key={user.id}>{user.id}</td>
-                                                    <td className="align-middle"><img src="/assets/img/brand/white.jpg" style={{width: '50px', borderRadius:'10px'}} alt="Category" /></td>
+                                                    <td className="align-middle"><img src="/assets/img/brand/white.png" style={{width: '50px', borderRadius:'10px'}} alt="Category" /></td>
                                                     <td className="align-middle">{user.name}</td>
                                                     <td className="align-middle">{user.username}</td>
                                                     <td className="align-middle">{user.email}</td>

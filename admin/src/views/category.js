@@ -175,7 +175,7 @@ class Category extends React.Component{
                                             {this.state.allCategories.map(category => (
                                                 <tr>
                                                     <td className="align-middle" key={category.id}>{category.id}</td>
-                                                    <td className="align-middle"><img src="/assets/img/brand/white.jpg" style={{width: '50px', borderRadius:'10px'}} alt="Category" /></td>
+                                                    <td className="align-middle"><img src="/assets/img/brand/white.png" style={{width: '50px', borderRadius:'10px'}} alt="Category" /></td>
                                                     <td className="align-middle">{category.name}</td>
                                                     <td className="align-middle">{category.description}</td>
                                                     <td className="align-middle">

@@ -246,12 +246,13 @@ class Users extends React.Component{
                                             <tr>
                                                 <th>Id</th>
                                                 <th>Image</th>
-                                                <th>Name</th>
+                                                <th>FirstName / LastName</th>
                                                 <th>Username</th>
                                                 <th>Email</th>
-                                                <th>Phone</th>
                                                 <th>Password</th>
-                                                <th>Address</th>
+                                                <th>Gender</th>
+                                                <th>City</th>
+                                                <th>Credits</th>
                                                 <th>Status</th>
                                                 <th>Edit/Delete</th>
                                             </tr>
@@ -260,13 +261,14 @@ class Users extends React.Component{
                                             {this.state.allUsers.map(user => (
                                                 <tr>
                                                     <td className="align-middle" key={user.id}>{user.id}</td>
-                                                    <td className="align-middle"><img src="/assets/img/brand/white.jpg" style={{width: '50px', borderRadius:'10px'}} alt="Category" /></td>
-                                                    <td className="align-middle">{user.name}</td>
+                                                    <td className="align-middle"><img src="/assets/img/brand/white.png" style={{width: '50px', borderRadius:'10px'}} alt="Category" /></td>
+                                                    <td className="align-middle">{user.firstName} / {user.lastName}</td>
                                                     <td className="align-middle">{user.username}</td>
                                                     <td className="align-middle">{user.email}</td>
-                                                    <td className="align-middle">{user.phone}</td>
                                                     <td className="align-middle">{user.password}</td>
-                                                    <td className="align-middle">{user.address}</td>
+                                                    <td className="align-middle">{user.gender}</td>
+                                                    <td className="align-middle">{user.city}</td>
+                                                    <td className="align-middle">{user.credits}</td>
                                                     <td className="align-middle">
                                                         <button type="submit" className="btn btn-secondary mr-0" name="unban"><i className="fa fa-eye"></i></button>
                                                         <button type="submit" className="btn btn-warning mr-0" name="ban"><i className="fa fa-eye-slash"></i></button>

@@ -12,6 +12,7 @@ import Contact from './views/contact'
 import Blog from './views/blog'
 import Login from './views/login'
 import Register from './views/register'
+import Account from './views/account'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path = "/Blog" exact component     = {() => <Blog />} />
                 <Route path = "/Login" exact component    = {() => <Login />} />
                 <Route path = "/Register" exact component = {() => <Register />} />
+                <Route path = "/Account" exact component  = {() => <Account />} />
               </Switch>
               
         <Footer />
