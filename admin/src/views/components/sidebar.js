@@ -55,7 +55,7 @@ const Sidebar = () => {
                                             </Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to="/Blog" className="nav-link">
+                                            <Link to="/Blogs" className="nav-link">
                                             <i className="ni ni-single-copy-04 text-primary"></i>
                                             <span className="sidenav-normal"> Blogs </span>
                                             </Link>
