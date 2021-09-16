@@ -6,6 +6,8 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 
 import blogRoutes from './routes/blogs.js'
+import categoryRoutes from './routes/categories.js'
+import subCategoryRoutes from './routes/subCategories.js'
 import userRoutes from './routes/users.js'
 
 const app = express()
@@ -16,6 +18,8 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors())
 
 app.use('/blogs', blogRoutes)
+app.use('/categories', categoryRoutes)
+app.use('/subCategories', subCategoryRoutes)
 app.use('/user', userRoutes)
 
 const PORT = process.env.PORT|| 5000

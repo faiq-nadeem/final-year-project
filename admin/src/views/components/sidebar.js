@@ -37,13 +37,13 @@ const Sidebar = () => {
                                             </Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to="/Category" className="nav-link">
+                                            <Link to="/Categories" className="nav-link">
                                             <i className="ni ni-books text-primary"></i>
                                             <span className="sidenav-normal"> Categories </span>
                                             </Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link to="/SubCategory" className="nav-link">
+                                            <Link to="/SubCategories" className="nav-link">
                                             <i className="ni ni-bullet-list-67 text-primary"></i>
                                             <span className="sidenav-normal"> Sub Categories </span>
                                             </Link>

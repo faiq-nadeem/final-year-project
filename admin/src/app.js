@@ -6,8 +6,8 @@ import Navbar from './views/components/navbar';
 import Footer from './views/components/footer';
 
 import Dashboard from './views/dashboard';
-import Category from './views/category';
-import SubCategory from './views/subcategory';
+import Categories from './views/categories';
+import SubCategories from './views/subcategories';
 import Advisors from './views/advisors';
 import Blogs from './views/blogs';
 import Users from './views/users';
@@ -27,8 +27,8 @@ function App() {
 
               <Switch>
                 <Route path = "/" exact component              = {Dashboard} />
-                <Route path = "/Category" exact component      = {Category} />
-                <Route path = "/SubCategory" exact component   = {SubCategory} />
+                <Route path = "/Categories" exact component    = {Categories} />
+                <Route path = "/SubCategories" exact component = {SubCategories} />
                 <Route path = "/Advisors" exact component      = {Advisors} />
                 <Route path = "/Blogs" exact component         = {Blogs} />
                 <Route path = "/Users" exact component         = {Users} />

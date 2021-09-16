@@ -42,7 +42,7 @@ export const createBlog = async (req, res) => {
 }
 
 export const updateBlog = async (req, res) => {
-    const { id } = req.params
+    const { id }                                          = req.params
     const { title, message, creator, selectedFile, tags } = req.body
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No blog with id: ${id}`)
@@ -71,7 +71,7 @@ export const likeBlog = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No blog with id: ${id}`)
     
-    const blog  = await Blog.findById(id)
+    const blog = await Blog.findById(id)
 
     const index = blog.likes.findIndex((id) => id === String(req.userId))
 

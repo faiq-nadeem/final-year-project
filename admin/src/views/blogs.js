@@ -215,7 +215,8 @@ const Blogs = () => {
                 </div>
             </div>
         </div>
+        )
     )
-)}
+}
 
 export default Blogs

@@ -12,11 +12,11 @@ const blogSchema = mongoose.Schema({
     //     default: 0,
     // },
     likes   : {
-        type: [String],
+        type   : [String],
         default: [],
     },
     createdAt: {
-        type: Date,
+        type   : Date,
         default: new Date(),
     },
 })
