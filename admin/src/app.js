@@ -9,7 +9,7 @@ import Dashboard from './views/dashboard';
 import Category from './views/category';
 import SubCategory from './views/subcategory';
 import Advisors from './views/advisors';
-import Blogs from './views/blogs/blogs';
+import Blogs from './views/blogs';
 import Users from './views/users';
 import PaymentMethod from './views/paymentmethod';
 import Account from './views/account';
@@ -17,7 +17,6 @@ import Auth from './views/components/auth';
 // import Streamer from './views/streamer';
 
 function App() {
-  // const [currentId, setCurrentId] = useState(null)
   return (
     <div>
       <BrowserRouter>
@@ -44,7 +43,7 @@ function App() {
 
         </BrowserRouter>
       </div>
-  );
+  )
 }
 
 export default App;

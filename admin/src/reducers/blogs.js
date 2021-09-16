@@ -1,4 +1,5 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes'
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (blogs = [], action) => {
     switch (action.type) {
