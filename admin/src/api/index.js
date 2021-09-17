@@ -9,8 +9,8 @@ API.interceptors.request.use((req) => {
     return req
 })
 
-export const signIn = (formData) => API.post('/user/signIn', formData)
-export const signUp = (formData) => API.post('/user/signUp', formData)
+export const signIn = (formData) => API.post('/users/signIn', formData)
+export const signUp = (formData) => API.post('/users/signUp', formData)
 
 export const fetchBlogs  = () => API.get('/blogs')
 export const createBlog  = (newBlog) => API.post('/blogs', newBlog)
@@ -24,8 +24,14 @@ export const updatedCategory = (id, updatedCategory) => API.patch(`/categories/$
 export const deleteCategory  = (id) => API.delete(`/categories/${id}`)
 export const likeCategory    = (id) => API.patch(`/categories/${id}/likeCategory `)
 
-export const fetchSubCategories  = () => API.get('/subCategories')
+export const fetchSubCategories = () => API.get('/subCategories')
 export const createSubCategory  = (newSubCategory) => API.post('/subCategories', newSubCategory )
 export const updatedSubCategory = (id, updatedSubCategory) => API.patch(`/subCategories/${id}`, updatedSubCategory )
 export const deleteSubCategory  = (id) => API.delete(`/subCategories/${id}`)
 export const likeSubCategory    = (id) => API.patch(`/subCategories/${id}/likeSubCategory `)
+
+export const fetchUsers       = () => API.get('/users')
+export const fetchAdvisors    = () => API.get('/users/advisors')
+export const deleteUser       = (id) => API.delete(`/users/${id}`)
+export const changeUserStatus = (id) => API.patch(`/users/${id}/changeUserStatus `)
+export const changeUserRole   = (id) => API.patch(`/users/${id}/changeUserRole `)

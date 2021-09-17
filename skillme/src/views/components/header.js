@@ -1,9 +1,38 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link, useHistory, useLocation } from 'react-router-dom'
+import { LOGOUT } from '../../constants/actionTypes'
+import decode from 'jwt-decode'
 import Preloader from './preloader'
 import Search from './search'
 
 const Header = () => {
+
+    const dispatch        = useDispatch()
+    const history         = useHistory()
+    const location        = useLocation()
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+
+    const logout = () => {
+        dispatch({
+            type: LOGOUT
+        })
+        history.push('/')
+        setUser(null)
+    }
+
+    useEffect(() => {
+        const token = user?.token
+
+        if(token){
+            const decodeToken = decode(token)
+
+            if(decodeToken.exp * 1000 < new Date().getTime()) logout()
+        }
+
+        setUser(JSON.parse(localStorage.getItem('profile')))
+    }, [location])
+
     return (
         <div>
             <Preloader />
@@ -35,7 +64,7 @@ const Header = () => {
                                 <Link to="/Contact">Contact</Link>
                             </li>
                             <li>
-                                <Link to="/Blog">Blog</Link>
+                                <Link to="/Blogs">Blog</Link>
                             </li>
                             <li className="separator">
                                 <span>|</span>
@@ -54,25 +83,33 @@ const Header = () => {
                                     </select>
                                 </div>
                             </li>
-                            
-                            <li className="user-profile">
-                                <Link to="/Login">
-                                    Login / Sign Up
-                                </Link>
-                            </li>
-                            {/* <li className="user-profile">
-                                <Link to="link.php">
-                                    <img src="assets/images/user-demo.png" alt="" />
-                                </Link>
-                                <ul className="submenu">
-                                    <li>
-                                        <Link to="link.php">Profile</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="link.php">Logout</Link>
-                                    </li>
-                                </ul>
-                            </li> */}
+                            {user ? (
+                                <li className="user-profile">
+                                        {
+                                            user.result.selectedFile ? (
+                                                <img alt="placeholder" src={user.result.selectedFile} style={{width:'35px', height:'35px', borderRadius:'25px'}} />
+                                            ) : (
+                                                <h1>{user.result.name.charAt(0)}</h1>
+                                            )
+                                        }
+                                    <ul className="submenu">
+                                        <li>
+                                            <Link to="/Account">Profile</Link>
+                                        </li>
+                                        <li onClick = {logout}>
+                                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                            <a href="" onClick = {logout}>Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                ) : (
+
+                                <li className="user-profile">
+                                    <Link to="/Auth">
+                                        Login / Register
+                                    </Link>
+                                </li> )
+                            }
                         </ul>
                         <div className="header-bar d-lg-none">
                             <span></span>

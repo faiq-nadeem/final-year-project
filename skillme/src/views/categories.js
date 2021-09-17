@@ -142,7 +142,7 @@ const Category = () => {
                                         <div className="filter-main">
                                             
                                             <ul className="nav grid-button tab-menu"   role="tablist">
-                                                <Link to="/Category" data-toggle="modal" data-target="#exampleModalCenter">
+                                                <Link to="/Categories" data-toggle="modal" data-target="#exampleModalCenter">
                                                     <i className="fa fa-users"></i>  Back To Community
                                                 </Link> 
                                             </ul>

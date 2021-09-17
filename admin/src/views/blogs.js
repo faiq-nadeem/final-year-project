@@ -60,7 +60,7 @@ const Blogs = () => {
     }
 
     return(
-        !blogs.length === 0 ? <div>There is no blog</div> : (
+        !blogs.length === 0 ? <div>There are no Blogs</div> : (
                 
             <div>
                 <div className="header bg-primary pb-6">
@@ -81,7 +81,7 @@ const Blogs = () => {
                                         <div className="modal-dialog modal- modal-dialog-centered modal-" role="document">
                                             <div className="modal-content">
                                                 <div className="modal-header">
-                                                    <h6 className="modal-title" id="modal-title-default">{currentId ? 'EDIT PREVIOUS ' : 'CREATE A NEW '} Blog</h6>
+                                                    <h6 className="modal-title" id="modal-title-default">{currentId ? 'EDIT THIS ' : 'CREATE A NEW '} BLOG</h6>
                                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">×</span>
                                                     </button>
@@ -184,7 +184,7 @@ const Blogs = () => {
                                                     <p>This will delete your item. You can't undo this</p>
                                                 </div>
                                                 <div className="modal-footer">
-                                                    <button className="btn btn-warning" data-dismiss="modal" onClick={() => dispatch(deleteBlog(blog._id))}>Delete Blog</button>
+                                                    <button className="btn btn-warning" data-dismiss="modal" onClick={() => dispatch(deleteBlog(blog._id))}>Delete</button>
                                                 </div>
                                             </div>
                                         </div>

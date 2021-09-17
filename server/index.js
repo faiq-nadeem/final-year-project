@@ -20,7 +20,7 @@ app.use(cors())
 app.use('/blogs', blogRoutes)
 app.use('/categories', categoryRoutes)
 app.use('/subCategories', subCategoryRoutes)
-app.use('/user', userRoutes)
+app.use('/users', userRoutes)
 
 const PORT = process.env.PORT|| 5000
 
