@@ -1,13 +1,14 @@
 import mongoose from 'mongoose'
 
 const categorySchema = mongoose.Schema({
-    title       : String,
-    message     : String,
-    name        : String,
-    creator     : String,
-    tags        : [String],
-    selectedFile: String,
-    createdAt   : {
+    title         : String,
+    message       : String,
+    name          : String,
+    creator       : String,
+    tags          : [String],
+    categoryStatus: String,
+    selectedFile  : String,
+    createdAt     : {
         type   : Date,
         default: new Date(),
     },

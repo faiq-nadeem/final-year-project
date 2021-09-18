@@ -1,10 +1,9 @@
-
 import {useDispatch, useSelector} from 'react-redux'
 import React, {useState, useEffect} from 'react'
 import FileBase from 'react-file-base64'
 import moment from 'moment'
 
-import { getBlogs, createBlog, updateBlog, deleteBlog, likeBlog } from '../actions/blogs'
+import { getBlogs, createBlog, updateBlog, deleteBlog, likeBlog, changeBlogStatus } from '../actions/blogs'
 
 const Blogs = () => {
 
@@ -26,9 +25,7 @@ const Blogs = () => {
         if(editBlog) setBlogData(editBlog)
     },[editBlog])
     
-    useEffect(() => {
-        dispatch(getBlogs())
-      }, [dispatch])
+    dispatch(getBlogs())
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -146,6 +143,16 @@ const Blogs = () => {
                                         <small className="text-muted">Published on :{blog.createdAt} {moment(blog.createdAt).fromNow()}</small>
                                         <p className="card-text mt-4">{blog.message}</p>
                                         <p className="card-text mt-4">{blog.tags ? blog.tags.map((tag) => `#${tag} `) : 'No Tags'}</p>
+                                        
+                                        {
+                                            user?.result?.userRole === 'admin' && (
+                                                blog.blogStatus === 'active' ? (
+                                                    <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeBlogStatus(blog._id))}><i className="fa fa-eye"></i></button>
+                                                ) : (
+                                                    <button type="button" className="btn btn-warning mr-0"  onClick={() => dispatch(changeBlogStatus(blog._id))}><i className="fa fa-eye-slash"></i></button>
+                                                )
+                                            )   
+                                        }
 
                                         <button className="btn btn-link px-0" disabled={!user?.result} onClick={() => dispatch(likeBlog(blog._id))}>
                                             {                                                        

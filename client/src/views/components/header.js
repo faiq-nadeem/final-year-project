@@ -69,20 +69,14 @@ const Header = () => {
                             <li className="separator">
                                 <span>|</span>
                             </li>
-                            <li>
-                                <div className="serch-icon">
-                                    <i className="fas fa-search"></i>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="language-select">
-                                    <select className="select-bar">
-                                        <option value="">EN</option>
-                                        <option value="">IN</option>
-                                        <option value="">BN</option>
-                                    </select>
-                                </div>
-                            </li>
+                            {
+                                user?.result?.userRole === 'advisor' && (
+                                    
+                                    <li>
+                                        <Link to="/Live">Go Live! </Link>
+                                    </li>
+                                )
+                            }
                             {user ? (
                                 <li className="user-profile">
                                         {

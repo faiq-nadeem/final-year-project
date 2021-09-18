@@ -6,7 +6,7 @@ const blogSchema = mongoose.Schema({
     name        : String,
     creator     : String,
     tags        : [String],
-    selectedFile: String,
+    blogStatus  : {type: String, required:true},
     // likeCount   : {
     //     type: Number,
     //     default: 0,
@@ -19,6 +19,7 @@ const blogSchema = mongoose.Schema({
         type   : Date,
         default: new Date(),
     },
+    selectedFile: String,
 })
 
 var Blog = mongoose.model('Blog', blogSchema)

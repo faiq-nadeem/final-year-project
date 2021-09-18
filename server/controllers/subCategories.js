@@ -52,4 +52,26 @@ export const deleteSubCategory = async (req, res) => {
     res.json({ message: "SubCategory deleted successfully." })
 }
 
+export const changeSubCategoryStatus = async (req, res) => {
+    const { id } = req.params
+
+    res.userId
+
+    if(!req.userId) return res.JSON({message: 'Unauthenticated'})
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No subCategory with id: ${id}`)
+    
+    const subCategory = await SubCategory.findById(id)
+
+    if(subCategory.subCategoryStatus === 'active'){
+        subCategory.subCategoryStatus = 'inactive'
+    } else{
+        subCategory.subCategoryStatus = 'active'
+    }
+
+    const updatedSubCategory = await SubCategory.findByIdAndUpdate(id, subCategory, { new: true })
+    
+    res.json(updatedSubCategory)
+}
+
 export default router

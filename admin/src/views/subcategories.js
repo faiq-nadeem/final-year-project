@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import React, {useState, useEffect} from 'react'
 import FileBase from 'react-file-base64'
 
-import { getSubCategories, createSubCategory, updateSubCategory, deleteSubCategory } from '../actions/subCategories'
+import { getSubCategories, createSubCategory, updateSubCategory, deleteSubCategory, changeSubCategoryStatus } from '../actions/subCategories'
 import { getCategories } from '../actions/categories'
 
 const SubCategories = () => {
@@ -15,25 +15,19 @@ const SubCategories = () => {
     const editSubCategory           = useSelector((state) => currentId ? state.subCategories.find((e) => e._id === currentId) : null)
 
     const [subCategoryData, setSubCategoryData] = useState({
-        title       : '',
-        message     : '',
-        tags        : '',
-        categoryId  : '',
-        selectedFile: ''
+        title            : '',
+        message          : '',
+        tags             : '',
+        categoryId       : '',
+        subCategoryStatus: 'active',
+        selectedFile     : ''
     })
-
 
     useEffect(() => {
         if(editSubCategory) setSubCategoryData(editSubCategory)
     },[editSubCategory])
-    
-    useEffect(() => {
-        dispatch(getCategories())
-      }, [dispatch])
-    
-    useEffect(() => {
-        dispatch(getSubCategories())
-      }, [dispatch])
+
+    dispatch(getCategories(), getSubCategories())
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -53,6 +47,7 @@ const SubCategories = () => {
             message     : '',
             tags        : '',
             categoryId  : '',
+            subCategoryStatus: 'active',
             selectedFile: ''
         })
     }
@@ -66,7 +61,6 @@ const SubCategories = () => {
     }
 
     return(
-        !subCategories.length === 0 ? <div>There are no SubCategory</div> : (
             <div>
                 <div className="header bg-primary pb-6">
                     <div className="container-fluid">
@@ -76,7 +70,7 @@ const SubCategories = () => {
                                     <nav aria-label="breadcrumb" className="d-none d-md-inline-block ml-md-4">
                                         <ol className="breadcrumb breadcrumb-links breadcrumb-dark">
                                             <li className="breadcrumb-item"><a href="dashboard.php"><i className="fas fa-home"></i></a></li>
-                                            <li className="breadcrumb-item"><a href="banners.php">SubCategories = {subCategories.length}</a></li>
+                                            <li className="breadcrumb-item"><a href="banners.php">SubCategories</a></li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -159,7 +153,7 @@ const SubCategories = () => {
                 <div className="container-fluid mt--6">
                     <div className="row">
                         {categories.map(category => (
-                            <div className="col-xl-4 pb-4">
+                            <div className="col-xl-4 pb-4" key={category._id}>
                                 <div className="card-header">
                                     <div className="row align-items-center">
                                         <img src={category.selectedFile} style={{width: '50px', borderRadius:'10px'}} alt="user" />
@@ -170,20 +164,9 @@ const SubCategories = () => {
                                     <div className="card-body">
                                         <ul className="list-group list-group-flush list my--3">
                                             {
-                                                !categories.length === 0 ? (
-                                                    <li className="list-group-item px-0">
-                                                        <div className="row align-items-center">
-                                                            <div className="col ml--2">
-                                                                <h4 className="mb-0">
-                                                                    <a href="#!">No Sub Category</a>
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                ) : (
-                                                    subCategories.map(subCategory => (
+                                                subCategories.map(subCategory => (
                                                         subCategory.categoryId === category._id ? (
-                                                            <li className="list-group-item px-0">
+                                                            <li className="list-group-item px-0" key={subCategory._id}>
                                                                 <div className="row align-items-center">
                                                                     <img src={category.selectedFile} style={{width: '50px', borderRadius:'10px'}} alt="user" />
                                                                     <div className="col ml--2">
@@ -191,8 +174,13 @@ const SubCategories = () => {
                                                                             {subCategory.title}
                                                                         </h4>
                                                                     </div>
-                                                                    <div className="col-auto text-center">
-                                                                        <button type="button" className="btn btn-secondary mr-0" data-toggle="modal" data-target="#new" onClick={(event) => this.getSubCategory(event, subCategory.id)}><i className="mr-0 fa fa-edit"></i></button>
+                                                                    <div className="col-auto text-center row">
+                                                                        {subCategory.subCategoryStatus === 'active' ? (
+                                                                            <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeSubCategoryStatus(subCategory._id))}><i className="fa fa-eye"></i></button>
+                                                                        ) : (
+                                                                            <button type="button" className="btn btn-warning mr-0"  onClick={() => dispatch(changeSubCategoryStatus(subCategory._id))}><i className="fa fa-eye-slash"></i></button>
+                                                                        )}
+                                                                        <button type="button" className="btn btn-secondary mr-0" data-toggle="modal" data-target="#new" onClick={() => setCurrentId(subCategory._id)}><i className="mr-0 fa fa-edit"></i></button>
                                                                         <button type="button" className="btn btn-warning mr-0" data-toggle="modal" data-target={"#delete"+subCategory.id}><i className="ni ni-fat-remove"></i></button>
                                                                     </div>
                                                                 </div>
@@ -211,7 +199,7 @@ const SubCategories = () => {
                                                                                     <p>This will delete your item. You can't undo this</p>
                                                                                 </div>
                                                                                 <div className="modal-footer">
-                                                                                    <button type="submit" className="btn btn-warning" name="delete_subCategory" onClick={(event) => this.deleteSubCategory(event, subCategory.id)}>Delete</button>
+                                                                                    <button type="button" className="btn btn-warning" data-dismiss="modal" onClick={() => dispatch(deleteSubCategory(subCategory._id))}>Delete</button>
                                                                                 </div>
                                                                             </form>
                                                                         </div>
@@ -221,19 +209,17 @@ const SubCategories = () => {
                                                         ) : (
                                                             <div></div>
                                                         )
-                                                    ))
+                                                    )
                                                 )
                                             }
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            // console.log(subCategory.id +" "+ subCategory.name)
                         ))}
                     </div>
                 </div>
             </div>
-        )
     )
 }
 

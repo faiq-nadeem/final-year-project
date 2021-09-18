@@ -15,18 +15,6 @@ export const getBlogs = async (req, res) => {
     }
 }
 
-// export const getBlog = async (req, res) => { 
-//     const { id } = req.params
-
-//     try {
-//         const blog = await Blog.findById(id)
-        
-//         res.status(200).json(blog)
-//     } catch (error) {
-//         res.status(404).json({ message: error.message })
-//     }
-// }
-
 export const createBlog = async (req, res) => {
     const blog = req.body
 
@@ -86,17 +74,27 @@ export const likeBlog = async (req, res) => {
     res.json(updatedBlog)
 }
 
-// export const likeBlog = async (req, res) => {
-//     const { id } = req.params
+export const changeBlogStatus = async (req, res) => {
+    const { id } = req.params
 
-//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No blog with id: ${id}`)
-    
-//     const blog = await Blog.findById(id)
+    res.userId
 
-//     const updatedBlog = await Blog.findByIdAndUpdate(id, { likeCount: blog.likeCount + 1 }, { new: true })
+    if(!req.userId) return res.JSON({message: 'Unauthenticated'})
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No blog with id: ${id}`)
     
-//     res.json(updatedBlog)
-// }
+    const blog = await Blog.findById(id)
+
+    if(blog.blogStatus === 'active'){
+        blog.blogStatus = 'inactive'
+    } else{
+        blog.blogStatus = 'active'
+    }
+
+    const updatedBlog = await Blog.findByIdAndUpdate(id, blog, { new: true })
+    
+    res.json(updatedBlog)
+}
 
 
 export default router

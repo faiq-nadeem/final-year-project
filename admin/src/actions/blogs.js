@@ -62,3 +62,15 @@ export const likeBlog = (id) => async (dispatch) => {
         
     }
 }
+
+export const changeBlogStatus = (id) => async (dispatch) => {
+    try {
+        const {data} = await api.changeBlogStatus(id)
+        dispatch({
+            type   : UPDATE,
+            payload: data
+        })
+    } catch (error) {
+        
+    }
+}

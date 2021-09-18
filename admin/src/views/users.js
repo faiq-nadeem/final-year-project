@@ -6,15 +6,11 @@ import { getUsers, deleteUser, changeUserStatus, changeUserRole } from '../actio
 
 const Users = () => {
 
-    const dispatch                  = useDispatch()
-    const user                      = JSON.parse(localStorage.getItem('profile'))
-    const users                     = useSelector((state) => state.users)
+    const dispatch = useDispatch()
+    const user     = JSON.parse(localStorage.getItem('profile'))
+    const users    = useSelector((state) => state.users)
 
-    
-    useEffect(() => {
-        dispatch(getUsers())
-      }, [dispatch])
-
+    dispatch(getUsers())
 
     if(!user?.result?.name) {
         return(
@@ -68,11 +64,11 @@ const Users = () => {
                                             {users.map(user => (
                                                 <tr>
                                                     <td className="align-middle"><img src={user.selectedFile} style={{width: '50px', borderRadius:'10px'}} alt="Category" /></td>
-                                                    <td className="align-middle">{user.name}</td>
-                                                    <td className="align-middle">{user.email}</td>
-                                                    <td className="align-middle">{user.dob}</td>
-                                                    <td className="align-middle">{user.gender}</td>
-                                                    <td className="align-middle">{user.credits}</td>
+                                                    <td className="align-middle text-wrap">{user.name}</td>
+                                                    <td className="align-middle text-wrap">{user.email}</td>
+                                                    <td className="align-middle text-wrap">{user.dob}</td>
+                                                    <td className="align-middle text-wrap">{user.gender}</td>
+                                                    <td className="align-middle text-wrap">{user.credits}</td>
                                                     <td className="align-middle">
                                                         {user.userRole === 'user' ? (
                                                             <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeUserRole(user._id))}>USER</button>

@@ -2,12 +2,14 @@ import express from 'express'
 const router = express.Router()
 import auth from '../middleware/auth.js'
 
-import { signIn, signUp, getUsers, getAdvisors, updateUser, deleteUser, changeUserStatus, changeUserRole } from '../controllers/users.js'
+import { signIn, signUp, getUsers, getSingleUser, getAdvisors, updateUser, deleteUser, changeUserStatus, changeUserRole } from '../controllers/users.js'
 
 router.post('/signIn', signIn)
 router.post('/signUp', signUp)
-router.get('/', getUsers)
+
 router.get('/advisors', getAdvisors)
+router.get('/', getUsers)
+router.get('/:id', getSingleUser)
 router.patch('/:id', auth, updateUser)
 router.delete('/:id', auth, deleteUser)
 router.patch('/:id/changeUserStatus', auth, changeUserStatus)

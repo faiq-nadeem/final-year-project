@@ -17,6 +17,8 @@ import Auth from './views/components/auth';
 // import Streamer from './views/streamer';
 
 function App() {
+
+    const user = JSON.parse(localStorage.getItem('profile'))
   return (
     <div>
       <BrowserRouter>
@@ -26,12 +28,14 @@ function App() {
               <Navbar />
 
               <Switch>
-                <Route path = "/" exact component              = {Dashboard} />
-                <Route path = "/Categories" exact component    = {Categories} />
-                <Route path = "/SubCategories" exact component = {SubCategories} />
-                <Route path = "/Advisors" exact component      = {Advisors} />
+                {!user?.result?.name ?  <Route exact path="/" component={Auth} /> : <Route path = "/" exact component = {Dashboard} />}
+
+                {user?.result?.userRole !== 'admin' ?  <Route exact path = "/Categories" component    = {Dashboard} /> : <Route path = "/Categories" exact component    = {Categories} />}
+                {user?.result?.userRole !== 'admin' ?  <Route exact path = "/SubCategories" component = {Dashboard} /> : <Route path = "/SubCategories" exact component = {SubCategories} />}
+                {user?.result?.userRole !== 'admin' ?  <Route exact path = "/Advisors" component      = {Dashboard} /> : <Route path = "/Advisors" exact component      = {Advisors} />}
+                {user?.result?.userRole !== 'admin' ?  <Route exact path = "/Users" component         = {Dashboard} /> : <Route path = "/Users" exact component         = {Users} />}
+                
                 <Route path = "/Blogs" exact component         = {Blogs} />
-                <Route path = "/Users" exact component         = {Users} />
                 <Route path = "/PaymentMethod" exact component = {PaymentMethod} />
                 <Route path = "/Account" exact component       = {Account} />
                 <Route path = "/Auth" exact component          = {Auth} />

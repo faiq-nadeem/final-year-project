@@ -82,6 +82,18 @@ export const getUsers = async (req, res) => {
     }
 }
 
+export const getSingleUser = async (req, res) => { 
+    const { id } = req.params
+
+    try {
+        const singleUser = await User.findById(id)
+        
+        res.status(200).json(singleUser)
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+
 export const getAdvisors = async (req, res) => { 
     try {
         const user = await User.find({ userRole: 'advisor' })
@@ -95,11 +107,11 @@ export const getAdvisors = async (req, res) => {
 export const updateUser = async (req, res) => {
     const { id } = req.params
 
-    const { name, email, password, dob, gender, userRole, selectedFile } = req.body
+    const { name, email, password, message, country, city, dob, occupation, gender, birthplace, selectedFile } = req.body
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`)
 
-    const updatedUser = { name, email, password, dob, gender, credits, userRole, userStatus, selectedFile, _id: id }
+    const updatedUser = { name, email, password, message, country, city, dob, occupation, gender, birthplace, selectedFile, _id: id }
 
     await User.findByIdAndUpdate(id, updatedUser, { new: true })
 

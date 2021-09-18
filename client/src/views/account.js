@@ -1,204 +1,128 @@
-import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import React, {useState, useEffect} from 'react'
+import FileBase from 'react-file-base64'
 
-class Account extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            allUsers: [],
-            addUser : {
-                name       : '',
-                username   : '',
-                phone      : '',
-                email      : '',
-                password   : '',
-                address    : '',
-                description: '',
-                id         : '0'
-            },
-            isUpdated: false
-        }
-        this.getAllUsers      = this.getAllUsers.bind(this)
-        this.handleChange     = this.handleChange.bind(this)
-        this.handleAddUser    = this.handleAddUser.bind(this)
-        this.getUser          = this.getUser.bind(this)
-        this.handleUpdateUser = this.handleUpdateUser.bind(this)
-        this.deleteUser       = this.deleteUser.bind(this)
-    }
+import { getSingleUser,updateUser } from '../actions/users'
 
-    componentWillMount() {
-        this.getAllUsers()
-    }
 
-    getAllUsers() {
-        fetch('http://localhost:8080/api/users').then(res => res.json()).then(result => {
-            this.setState({
-                allUsers : result,
-                isUpdated: false
-            })
-        })
-    }
+const Account = () => {
 
-    handleChange(event) {
-        this.setState({
-            addUser:{
-                ...this.state.addUser,
-                [event.target.name]: event.target.value,
-                id                 : this.state.addUser.id
-            }
-        })
-    }
+    const dispatch   = useDispatch()
+    const user       = JSON.parse(localStorage.getItem('profile'))
+    const singleUser = useSelector((state) => state.singleUser)
+    const userId     = user?.result?._id
     
-    handleAddUser() {
-        // console.log(this.state.addUser)
-        fetch('http://localhost:8080/api/users/addUser', {
-            method : 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state.addUser)
-        }).then(this.setState({
-            addUser: {
-                name       : '',
-                username   : '',
-                phone      : '',
-                email      : '',
-                password   : '',
-                address    : '',
-                description: '',
-            },
-            isUpdated: false
-        }))
+    const [userData, setUserData] = useState({
+        name        : '',
+        email       : '',
+        message     : '',
+        country     : '',
+        city        : '',
+        dob         : '',
+        occupation  : '',
+        gender      : '',
+        birthplace  : '',
+        selectedFile: ''
+    })
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        dispatch(updateUser(userId, userData))
     }
 
-    getUser(event, id) {
-        fetch('http://localhost:8080/api/users' + id).then(res => res.json()).then(result => {
-            this.setState({
-                addUser: {
-                    name       : result[0].name,
-                    username   : result[0].username,
-                    phone      : result[0].phone,
-                    email      : result[0].email,
-                    password   : result[0].password,
-                    address    : result[0].address,
-                    description: result[0].description,
-                    id         : result[0].id
-                },
-                isUpdated: true
-            })
-        })
-    }
+    return(
+        <div>
+            <section className="breadcrumb-area profile-bc-area">
+                <div className="container">
+                    <div className="content">
+                        <h2 className="title extra-padding">
+                            Setting
+                        </h2>
+                        <ul className="breadcrumb-list extra-padding">
+                            <li>
+                                <a href="index.html">
+                                    Home
+                                </a>
+                            </li>
 
-    handleUpdateUser() {
-        fetch('http://localhost:8080/api/users' + this.state.addUser.id, {
-            method : 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state.addUser)
-        }).then(
-            this.getAllUsers()
-        )
-    }
-
-    deleteUser(event, id) {
-        fetch('http://localhost:8080/api/users' + id, {
-            method : 'DELETE',
-        }).then(
-            this.getAllUsers()
-        )
-    }
-
-    render(){
-        return(
-            <div>
-                <section className="breadcrumb-area profile-bc-area">
-                    <div className="container">
-                        <div className="content">
-                            <h2 className="title extra-padding">
+                            <li>
                                 Setting
-                            </h2>
-                            <ul className="breadcrumb-list extra-padding">
-                                <li>
-                                    <a href="index.html">
-                                        Home
-                                    </a>
-                                </li>
-
-                                <li>
-                                    Setting
-                                </li>
-                            </ul>
-                        </div>
+                            </li>
+                        </ul>
                     </div>
-                </section>
+                </div>
+            </section>
+            <button type="button" onClick={dispatch(getSingleUser(userId))}>get user</button>
 
-                <section className="user-setting-section">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-xl-4 col-md-5">
-                                <div className="accordion" id="accordionExample">
-                                    <div className="card">
-                                    <div className="card-header" id="headingTwo">
-                                        <button className="collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <div className="icon">
-                                                <i className="fas fa-cogs"></i>
-                                            </div> 
-                                            <span>
-                                                Account
-                                            </span>
-                                            <div className="t-icon">
-                                                <i className="fas fa-plus"></i>
-                                                <i className="fas fa-minus"></i>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                        <div className="card-body">
-                                            <ul className="links">
-                                                <li>
-                                                    <a  className="active" href="user-setting.html">Profile Info</a>
-                                                </li>
-                                                <li>
-                                                    <a href="user-change-pass.html">Change Password</a>
-                                                </li>
-                                                <li>
-                                                    <a href="user-close-account.html">Close Account</a>
-                                                </li>
-                                            </ul>
+            <section className="user-setting-section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-xl-4 col-md-5">
+                            <div className="accordion" id="accordionExample">
+                                <div className="card">
+                                <div className="card-header" id="headingTwo">
+                                    <button className="collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div className="icon">
+                                            <i className="fas fa-cogs"></i>
+                                        </div> 
+                                        <span>
+                                            Account
+                                        </span>
+                                        <div className="t-icon">
+                                            <i className="fas fa-plus"></i>
+                                            <i className="fas fa-minus"></i>
                                         </div>
-                                    </div>
-                                    </div>
-                                    <div className="card">
-                                    <div className="card-header" id="headingThree">
-                                        <button className="collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            <div className="icon">
-                                                <i className="far fa-credit-card"></i>
-                                            </div> 
-                                            <span>
-                                                Subscriptions & Payments
-                                            </span>
-                                            <div className="t-icon">
-                                                <i className="fas fa-plus"></i>
-                                                <i className="fas fa-minus"></i>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                        <div className="card-body">
-                                            <ul className="links">
-                                                <li>
-                                                    <a href="user-billing.html">Billing & Payout</a>
-                                                </li>
-                                                <li>
-                                                    <a href="user-purchase.html">View Purchase History</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    </button>
+                                </div>
+                                <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div className="card-body">
+                                        <ul className="links">
+                                            <li>
+                                                <a  className="active" href="user-setting.html">Profile Info</a>
+                                            </li>
+                                            <li>
+                                                <a href="user-change-pass.html">Change Password</a>
+                                            </li>
+                                            <li>
+                                                <a href="user-close-account.html">Close Account</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
+                                </div>
+                                <div className="card">
+                                <div className="card-header" id="headingThree">
+                                    <button className="collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div className="icon">
+                                            <i className="far fa-credit-card"></i>
+                                        </div> 
+                                        <span>
+                                            Subscriptions & Payments
+                                        </span>
+                                        <div className="t-icon">
+                                            <i className="fas fa-plus"></i>
+                                            <i className="fas fa-minus"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div className="card-body">
+                                        <ul className="links">
+                                            <li>
+                                                <a href="user-billing.html">Billing & Payout</a>
+                                            </li>
+                                            <li>
+                                                <a href="user-purchase.html">View Purchase History</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
-                            <div className="col-xl-8 col-md-7 ">
+                        </div>
+                        <div className="col-xl-8 col-md-7 ">
+                            <form onSubmit={handleSubmit}>
                                 <div className="page-title">
                                     Profile Info
                                 </div>
@@ -208,14 +132,14 @@ class Account extends React.Component{
                                             <div className="top-bg"></div>
                                             <div className="p-inner-content">
                                                 <div className="profile-img">
-                                                    <img src="assets/images/profile/profile-user.png" alt="" />
+                                                    <img className="height-inherit" src={user?.result?.selectedFile} style={{width:'inherit'}} alt="" />
                                                     <div className="active-online"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-lg-6">
-                                        <div className="up-photo-card mb-30">
+                                        <button className="up-photo-card mb-30 custom-button btn" style={{width:'inherit'}}>
                                             <div className="icon">
                                                 <i className="fas fa-user"></i>
                                             </div>
@@ -223,12 +147,12 @@ class Account extends React.Component{
                                                 <h4>
                                                     Change Avatar
                                                 </h4>
-                                                <span>
+                                                <span style={{color:'thistle'}}>
                                                     120x120p size minimum
                                                 </span>
                                             </div>
-                                        </div>
-                                        <div className="up-photo-card">
+                                        </button>
+                                        <button className="up-photo-card custom-button btn" style={{width:'inherit'}}>
                                             <div className="icon">
                                                 <i className="fas fa-image"></i>
                                             </div>
@@ -236,11 +160,11 @@ class Account extends React.Component{
                                                 <h4>
                                                     Change Cover
                                                 </h4>
-                                                <span>
+                                                <span style={{color:'thistle'}}>
                                                     1200x300p size minimum
                                                 </span>
                                             </div>
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="input-info-box mt-30">
@@ -252,13 +176,13 @@ class Account extends React.Component{
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Profile Name</label>
-                                                    <input type="text" placeholder="Profile Name" />
+                                                    <input type="text" value={userData.name} onChange = {(e) => setUserData({...userData, name: e.target.value})} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Public Email</label>
-                                                    <input type="text" placeholder="Public Email" />
+                                                    <input type="text" placeholder="Public Email" value={user?.result?.email}/>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
@@ -287,7 +211,7 @@ class Account extends React.Component{
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Birthday</label>
-                                                    <input type="date" />
+                                                    <input type="date" value={user?.result?.dob}/>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -298,11 +222,12 @@ class Account extends React.Component{
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
-                                                    <label for="">Status</label>
-                                                    <select name="" id="">
-                                                        <option value="">In a Relationship</option>
-                                                        <option value="">Single</option>
-                                                        <option value="">Marid</option>
+                                                    <label for="">Gender</label>
+                                                    <select name="gender" >
+                                                        <option value={user?.result?.gender}>{user?.result?.gender}</option>
+                                                        <option value="">Male</option>
+                                                        <option value="">Female</option>
+                                                        <option value="">Rather Not Say</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -317,15 +242,14 @@ class Account extends React.Component{
                                 </div>
                                 <div className="buttons  mt-30">
                                     <button type="submit" className="custom-button">Save Changes</button>
-                                    <button className="custom-button2">Discard All</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
-                </section>
-            </div>
-        )
-    }
+                </div>
+            </section>
+        </div>
+    )
 }
 
 

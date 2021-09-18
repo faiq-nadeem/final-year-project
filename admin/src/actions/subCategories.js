@@ -62,3 +62,15 @@ export const likeSubCategory = (id) => async (dispatch) => {
         
     }
 }
+
+export const changeSubCategoryStatus = (id) => async (dispatch) => {
+    try {
+        const {data} = await api.changeSubCategoryStatus(id)
+        dispatch({
+            type   : UPDATE,
+            payload: data
+        })
+    } catch (error) {
+        
+    }
+}

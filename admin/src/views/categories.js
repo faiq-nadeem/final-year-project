@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import React, {useState, useEffect} from 'react'
 import FileBase from 'react-file-base64'
 
-import { getCategories, createCategory, updateCategory, deleteCategory } from '../actions/categories'
+import { getCategories, createCategory, updateCategory, deleteCategory, changeCategoryStatus } from '../actions/categories'
 
 const Categories = () => {
 
@@ -14,10 +14,11 @@ const Categories = () => {
     const editCategory              = useSelector((state) => currentId ? state.categories.find((e) => e._id === currentId) : null)
 
     const [categoryData, setCategoryData] = useState({
-        title       : '',
-        message     : '',
-        tags        : '',
-        selectedFile: ''
+        title         : '',
+        message       : '',
+        tags          : '',
+        categoryStatus: 'active',
+        selectedFile  : ''
     })
 
 
@@ -25,9 +26,7 @@ const Categories = () => {
         if(editCategory) setCategoryData(editCategory)
     },[editCategory])
     
-    useEffect(() => {
-        dispatch(getCategories())
-      }, [dispatch])
+    dispatch(getCategories())
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -43,10 +42,11 @@ const Categories = () => {
     const clear = () => {
         setCurrentId(null)
         setCategoryData({
-            title       : '',
-            message     : '',
-            tags        : '',
-            selectedFile: ''
+            title         : '',
+            message       : '',
+            tags          : '',
+            categoryStatus: 'active',
+            selectedFile  : ''
         })
     }
 
@@ -147,21 +147,21 @@ const Categories = () => {
                                                 <th>Description</th>
                                                 <th>Tags</th>
                                                 <th>Actions</th>
-                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             { categories.map((category) => (
                                                 <tr key={category._id}>
                                                     <td className="align-middle"><img src={category.selectedFile} style={{width: '50px', borderRadius:'10px'}} alt="Category" /></td>
-                                                    <td className="align-middle">{category.title}</td>
-                                                    <td className="align-middle">{category.message}</td>
-                                                    <td className="align-middle">{category.tags ? category.tags.map((tag) => `#${tag} `) : 'No Tags'}</td>
-                                                    <td className="align-middle">
-                                                        <button type="submit" className="btn btn-secondary mr-0" name="unban"><i className="fa fa-eye"></i></button>
-                                                        <button type="submit" className="btn btn-warning mr-0" name="ban"><i className="fa fa-eye-slash"></i></button>
-                                                    </td>
-                                                    <td className="align-middle">
+                                                    <td className="align-middle text-wrap">{category.title}</td>
+                                                    <td className="align-middle text-wrap">{category.message}</td>
+                                                    <td className="align-middle text-wrap">{category.tags ? category.tags.map((tag) => `#${tag} `) : 'No Tags'}</td>
+                                                    <td className="align-middle row">
+                                                        {category.categoryStatus === 'active' ? (
+                                                            <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeCategoryStatus(category._id))}><i className="fa fa-eye"></i></button>
+                                                        ) : (
+                                                            <button type="button" className="btn btn-warning mr-0"  onClick={() => dispatch(changeCategoryStatus(category._id))}><i className="fa fa-eye-slash"></i></button>
+                                                        )}
                                                         {(user?.result?.googleId === category?.creator || user?.result?._id === category?.creator) && (
                                                             <div>
                                                                 <button type="button" className="btn btn-secondary m-1" data-dismiss="modal" data-toggle="modal" data-target="#new" onClick={() => setCurrentId(category._id)}><i className="fa fa-edit"></i></button>

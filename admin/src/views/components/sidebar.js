@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+
+    const user = JSON.parse(localStorage.getItem('profile'))
+
     return (
         <nav className="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white" id="sidenav-main">
             <div className="scrollbar-inner">
@@ -29,58 +32,84 @@ const Sidebar = () => {
                             </div>
                             <div className="navbar-inner">
                                 <div className="collapse navbar-collapse" id="sidenav-collapse-main">
-                                    <ul className="navbar-nav">
-                                        <li className="nav-item">
-                                            <Link to="/" className="nav-link">
-                                            <i className="ni ni-key-25 text-primary"></i>
-                                            <span className="sidenav-normal"> Dashboard </span>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/Categories" className="nav-link">
-                                            <i className="ni ni-books text-primary"></i>
-                                            <span className="sidenav-normal"> Categories </span>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/SubCategories" className="nav-link">
-                                            <i className="ni ni-bullet-list-67 text-primary"></i>
-                                            <span className="sidenav-normal"> Sub Categories </span>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/Advisors" className="nav-link">
-                                            <i className="ni ni-cart text-primary"></i>
-                                            <span className="sidenav-normal"> Advisors </span>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/Blogs" className="nav-link">
-                                            <i className="ni ni-single-copy-04 text-primary"></i>
-                                            <span className="sidenav-normal"> Blogs </span>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link to="/Users" className="nav-link">
-                                            <i className="ni ni-single-02 text-primary"></i>
-                                            <span className="sidenav-normal"> Users </span>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                    <ul className="navbar-nav">
-                                        {/* <li className="nav-item">
-                                            <Link to="contact.php" className="nav-link">
-                                            <i className="ni ni-badge text-primary"></i>
-                                            <span className="sidenav-normal"> Contact Details </span>
-                                            </Link>
-                                        </li> */}
-                                        <li className="nav-item">
-                                            <Link to="/PaymentMethod" className="nav-link">
-                                            <i className="ni ni-credit-card text-primary"></i>
-                                            <span className="sidenav-normal"> Payment Methods </span>
-                                            </Link>
-                                        </li>
-                                    </ul>
+                                    {user?.result?.name ? (
+                                        <>
+                                            <ul className="navbar-nav">
+                                                <li className="nav-item">
+                                                    <Link to="/" className="nav-link">
+                                                    <i className="ni ni-key-25 text-primary"></i>
+                                                    <span className="sidenav-normal"> Dashboard </span>
+                                                    </Link>
+                                                </li>
+                                                {
+                                                    user?.result?.userRole === 'admin' && (
+                                                        <>
+                                                            <li className="nav-item">
+                                                                <Link to="/Categories" className="nav-link">
+                                                                <i className="ni ni-books text-primary"></i>
+                                                                <span className="sidenav-normal"> Categories </span>
+                                                                </Link>
+                                                            </li>
+                                                            <li className="nav-item">
+                                                                <Link to="/SubCategories" className="nav-link">
+                                                                <i className="ni ni-bullet-list-67 text-primary"></i>
+                                                                <span className="sidenav-normal"> Sub Categories </span>
+                                                                </Link>
+                                                            </li>
+                                                            <li className="nav-item">
+                                                                <Link to="/Advisors" className="nav-link">
+                                                                <i className="ni ni-cart text-primary"></i>
+                                                                <span className="sidenav-normal"> Advisors </span>
+                                                                </Link>
+                                                            </li>
+                                                        </>
+                                                    )
+                                                }
+                                                <li className="nav-item">
+                                                    <Link to="/Blogs" className="nav-link">
+                                                    <i className="ni ni-single-copy-04 text-primary"></i>
+                                                    <span className="sidenav-normal"> Blogs </span>
+                                                    </Link>
+                                                </li>
+                                                {
+                                                    user?.result?.userRole === 'admin' && (
+                                                        <>
+                                                            <li className="nav-item">
+                                                                <Link to="/Users" className="nav-link">
+                                                                <i className="ni ni-single-02 text-primary"></i>
+                                                                <span className="sidenav-normal"> Users </span>
+                                                                </Link>
+                                                            </li>
+                                                        </>
+                                                    )
+                                                }
+                                            </ul>
+                                            <ul className="navbar-nav">
+                                                {/* <li className="nav-item">
+                                                    <Link to="contact.php" className="nav-link">
+                                                    <i className="ni ni-badge text-primary"></i>
+                                                    <span className="sidenav-normal"> Contact Details </span>
+                                                    </Link>
+                                                </li> */}
+                                                <li className="nav-item">
+                                                    <Link to="/PaymentMethod" className="nav-link">
+                                                    <i className="ni ni-credit-card text-primary"></i>
+                                                    <span className="sidenav-normal"> Payment Methods </span>
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </>
+                                    ) : (
+                                        <ul className="navbar-nav">
+                                            <li className="nav-item">
+                                                <h1 className="nav-link">
+                                                <span className="sidenav-normal"> Please sign in to continue </span>
+                                                </h1>
+                                            </li>
+                                        </ul>
+                                    )
+                                }
+                                    
                                 </div>
                             </div>
                         </div>

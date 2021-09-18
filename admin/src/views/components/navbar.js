@@ -6,10 +6,10 @@ import decode from 'jwt-decode'
 
 const Navbar = () => {
 
-    const dispatch                  = useDispatch()
-    const history                   = useHistory()
-    const location                  = useLocation()
-    const [user, setUser]           = useState(JSON.parse(localStorage.getItem('profile')))
+    const dispatch        = useDispatch()
+    const history         = useHistory()
+    const location        = useLocation()
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
     const logout = () => {
         dispatch({
@@ -63,51 +63,56 @@ const Navbar = () => {
                                 <i className="ni ni-zoom-split-in"></i>
                             </a>
                         </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link" href="nill" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="ni ni-ungroup"></i>
-                            </a>
-                            <div className="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
-                                <div className="row shortcuts px-4">
-                                    <a href="products.php" className="col-4 shortcut-item">
-                                        <span className="shortcut-media avatar rounded-circle bg-gradient-red">
-                                        <i className="ni ni-app"></i>
-                                        </span>
-                                        <small>Products</small>
+                        {user?.result?.name && (
+                            <>
+                                <li className="nav-item dropdown">
+                                    <a className="nav-link" href="nill" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i className="ni ni-ungroup"></i>
                                     </a>
-                                    <a href="category.php" className="col-4 shortcut-item">
-                                        <span className="shortcut-media avatar rounded-circle bg-gradient-orange">
-                                        <i className="ni ni-books"></i>
-                                        </span>
-                                        <small>Categories</small>
-                                    </a>
-                                    <a href="payments.php" className="col-4 shortcut-item">
-                                        <span className="shortcut-media avatar rounded-circle bg-gradient-info">
-                                        <i className="ni ni-credit-card"></i>
-                                        </span>
-                                        <small>Payments</small>
-                                    </a>
-                                    <a href="orders.php" className="col-4 shortcut-item">
-                                        <span className="shortcut-media avatar rounded-circle bg-gradient-green">
-                                        <i className="ni ni-basket"></i>
-                                        </span>
-                                        <small>New Orders</small>
-                                    </a>
-                                        <a href="orders.php" className="col-4 shortcut-item">
-                                        <span className="shortcut-media avatar rounded-circle bg-gradient-yellow">
-                                        <i className="ni ni-money-coins"></i>
-                                        </span>
-                                        <small>Pending Orders</small>
-                                    </a>
-                                    <a href="orders.php" className="col-4 shortcut-item">
-                                        <span className="shortcut-media avatar rounded-circle bg-gradient-purple">
-                                        <i className="ni ni-fat-remove"></i>
-                                        </span>
-                                        <small>Cancelled Orders</small>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
+                                    <div className="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
+                                        <div className="row shortcuts px-4">
+                                            <a href="products.php" className="col-4 shortcut-item">
+                                                <span className="shortcut-media avatar rounded-circle bg-gradient-red">
+                                                <i className="ni ni-app"></i>
+                                                </span>
+                                                <small>Products</small>
+                                            </a>
+                                            <a href="category.php" className="col-4 shortcut-item">
+                                                <span className="shortcut-media avatar rounded-circle bg-gradient-orange">
+                                                <i className="ni ni-books"></i>
+                                                </span>
+                                                <small>Categories</small>
+                                            </a>
+                                            <a href="payments.php" className="col-4 shortcut-item">
+                                                <span className="shortcut-media avatar rounded-circle bg-gradient-info">
+                                                <i className="ni ni-credit-card"></i>
+                                                </span>
+                                                <small>Payments</small>
+                                            </a>
+                                            <a href="orders.php" className="col-4 shortcut-item">
+                                                <span className="shortcut-media avatar rounded-circle bg-gradient-green">
+                                                <i className="ni ni-basket"></i>
+                                                </span>
+                                                <small>New Orders</small>
+                                            </a>
+                                                <a href="orders.php" className="col-4 shortcut-item">
+                                                <span className="shortcut-media avatar rounded-circle bg-gradient-yellow">
+                                                <i className="ni ni-money-coins"></i>
+                                                </span>
+                                                <small>Pending Orders</small>
+                                            </a>
+                                            <a href="orders.php" className="col-4 shortcut-item">
+                                                <span className="shortcut-media avatar rounded-circle bg-gradient-purple">
+                                                <i className="ni ni-fat-remove"></i>
+                                                </span>
+                                                <small>Cancelled Orders</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </>
+                        )
+                    }
                     </ul>
                     <ul className="navbar-nav align-items-center  ml-auto ml-md-0 ">
                         <li className="nav-item dropdown">
@@ -130,9 +135,6 @@ const Navbar = () => {
                                         </div>
                                     </a>
                                     <div className="dropdown-menu  dropdown-menu-right ">
-                                        {/* <div className="dropdown-header noti-title">
-                                            <h6 className="text-overflow m-0">Welcome {user.result.name}!</h6>
-                                        </div> */}
                                         <Link to="/Account" className="dropdown-item">
                                             <i className="ni ni-settings-gear-65"></i>
                                             <span>Account</span>
