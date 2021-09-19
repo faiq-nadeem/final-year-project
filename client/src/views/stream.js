@@ -1,9 +1,12 @@
 import React from 'react'
+import { useLocation } from 'react-router'
 
 import VideoPlayer from './components/streamVideo';
 import { ContextProvider } from '../streamer/context'
 
 const Stream = () => {
+    const location = useLocation()
+    const {advisorKey} = location.state
   
     return (
         
@@ -34,7 +37,7 @@ const Stream = () => {
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <VideoPlayer />
+                        <VideoPlayer advisorKey={advisorKey}/>
                     </div>
                 </div>
             </section>

@@ -1,7 +1,20 @@
-import { FETCH, UPDATE } from '../constants/actionTypes'
+import { FETCH_ALL, FETCH, UPDATE } from '../constants/actionTypes'
 import * as api from '../api'
 
 // Action Creators
+
+export const getAdvisors = () => async(dispatch) => {
+    try {
+        const {data} = await api.fetchAdvisors()
+
+        dispatch({
+            type   : FETCH_ALL,
+            payload: data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const getSingleUser = (id) => async (dispatch) => {
     try {
