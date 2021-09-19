@@ -14,7 +14,6 @@ import Users from './views/users';
 import PaymentMethod from './views/paymentmethod';
 import Account from './views/account';
 import Auth from './views/components/auth';
-// import Streamer from './views/streamer';
 
 function App() {
 
@@ -39,7 +38,6 @@ function App() {
                 <Route path = "/PaymentMethod" exact component = {PaymentMethod} />
                 <Route path = "/Account" exact component       = {Account} />
                 <Route path = "/Auth" exact component          = {Auth} />
-                {/* <Route path = "/Streamer" exact component      = {() => <Streamer />} /> */}
               </Switch>
           
             </div>

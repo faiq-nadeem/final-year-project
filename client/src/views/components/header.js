@@ -73,7 +73,7 @@ const Header = () => {
                                 user?.result?.userRole === 'advisor' && (
                                     
                                     <li>
-                                        <Link to="/Stream">Go Live! </Link>
+                                        <Link to={{pathname:'/Stream', state:{advisorKey: user?.result?.userKey}}}>Go Live! </Link>
                                     </li>
                                 )
                             }

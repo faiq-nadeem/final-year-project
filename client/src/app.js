@@ -11,12 +11,13 @@ import Categories from './views/categories'
 import About from './views/about'
 import Contact from './views/contact'
 import Blogs from './views/blogs'
+import Profile from './views/profile'
 import Account from './views/account'
 import Stream from './views/stream'
 
 function App() {
   return (
-    <div className="App">
+    <div>
 
       <BrowserRouter>
         <Header />
@@ -29,6 +30,7 @@ function App() {
                 <Route path = "/About" exact component      = {About} />
                 <Route path = "/Contact" exact component    = {Contact} />
                 <Route path = "/Blogs" exact component      = {Blogs} />
+                <Route path = "/Profile" exact component    = {Profile} />
                 <Route path = "/Account" exact component    = {Account} />
                 <Route path = "/Stream" exact component     = {Stream} />
               </Switch>

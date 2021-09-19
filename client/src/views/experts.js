@@ -1,8 +1,27 @@
+import {useDispatch, useSelector} from 'react-redux'
 import React from 'react'
-import { Link } from "react-router-dom"
+import {Link} from 'react-router-dom'
+
+import { getAdvisors } from '../actions/users'
 
 const Experts = () => {
-    return (
+
+    const dispatch = useDispatch()
+    const user     = JSON.parse(localStorage.getItem('profile'))
+    const users    = useSelector((state) => state.users)
+
+    dispatch(getAdvisors())
+
+    // if(!user?.result?.name) {
+    //     return(
+    //         <div>
+    //             Please Sign In To continue
+    //         </div>
+    //     )
+    // }
+
+    return(
+        // !users.length === 0 ? <div>There are no Advisors</div> : (
         <div>
             <section className="breadcrumb-area profile-bc-area">
                 <div className="container">
@@ -53,144 +72,30 @@ const Experts = () => {
                     </div>
                     <div className="row">
                         <div className="col-lg-4 col-md-6">
-                            <div className="single-community-box">
-                                <div className="img">
-                                    <img src="assets/images/cummunity/img1.jpg" alt="" />
-                                </div>
-                                <div className="content">
-                                    <a href="community-single.html" className="title">
-                                        Ali Behram
-                                    </a>
-                                    <p className="text">
-                                        Graphic Designer
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <i className="fas fa-globe-americas"></i> Live
+                            
+                            {users.map(user => (
+                                <div className="single-community-box">
+                                    <div className="img">
+                                        <img src={user.selectedFile} alt="" />
                                     </div>
-                                    <div className="right">
-                                        <i className="fas fa-users"></i> 100
+                                    <div className="content">
+                                        <Link to={{pathname:'/Profile', state:{userId: user._id}}} className="title">
+                                            {user.name} / {user.email}
+                                        </Link>
+                                        <p className="text">
+                                            Graphic Designer
+                                        </p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-community-box">
-                                <div className="img">
-                                    <img src="assets/images/cummunity/img2.jpg" alt="" />
-                                </div>
-                                <div className="content">
-                                    <a href="community-single.html" className="title">
-                                        Faiq Nadeem
-                                    </a>
-                                    <p className="text">
-                                        English Expert
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <i className="fas fa-globe-americas"></i> Live
-                                    </div>
-                                    <div className="right">
-                                        <i className="fas fa-users"></i> 100
+                                    <div className="box-footer">
+                                        <div className="left">
+                                            <i className="fas fa-globe-americas"></i> Live
+                                        </div>
+                                        <div className="right">
+                                            <i className="fas fa-users"></i> 100
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-community-box">
-                                <div className="img">
-                                    <img src="assets/images/cummunity/img3.jpg" alt="" />
-                                </div>
-                                <div className="content">
-                                    <a href="community-single.html" className="title">
-                                        Subhan Zahid
-                                    </a>
-                                    <p className="text">
-                                        Hardware Expert
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <i className="fas fa-globe-americas"></i> Live
-                                    </div>
-                                    <div className="right">
-                                        <i className="fas fa-users"></i> 100
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-community-box">
-                                <div className="img">
-                                    <img src="assets/images/cummunity/img3.jpg" alt="" />
-                                </div>
-                                <div className="content">
-                                    <a href="community-single.html" className="title">
-                                        Shirza Hashmi
-                                    </a>
-                                    <p className="text">
-                                        Hardware Engineer
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <i className="fas fa-globe-americas"></i> Live
-                                    </div>
-                                    <div className="right">
-                                        <i className="fas fa-users"></i> 100
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-community-box">
-                                <div className="img">
-                                    <img src="assets/images/cummunity/img1.jpg" alt="" />
-                                </div>
-                                <div className="content">
-                                    <a href="community-single.html" className="title">
-                                        Gulfam Tahir
-                                    </a>
-                                    <p className="text">
-                                        Game Development
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <i className="fas fa-globe-americas"></i> Live
-                                    </div>
-                                    <div className="right">
-                                        <i className="fas fa-users"></i> 100
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-community-box">
-                                <div className="img">
-                                    <img src="assets/images/cummunity/img2.jpg" alt="" />
-                                </div>
-                                <div className="content">
-                                    <a href="community-single.html" className="title">
-                                        Naukhaiz Chaudary
-                                    </a>
-                                    <p className="text">
-                                        Language Translator
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <i className="fas fa-globe-americas"></i> Live
-                                    </div>
-                                    <div className="right">
-                                        <i className="fas fa-users"></i> 100
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>

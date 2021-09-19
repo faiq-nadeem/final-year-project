@@ -21,7 +21,8 @@ export const likeCategory    = (id) => API.patch(`/categories/${id}/likeCategory
 export const fetchSubCategories = () => API.get('/subCategories')
 export const likeSubCategory    = (id) => API.patch(`/subCategories/${id}/likeSubCategory `)
 
-export const fetchSingleUser = (id) => API.get('/users/')
-export const updatedUser = (id, updatedUser) => API.patch(`/users/${id}`, updatedUser)
+export const fetchAdvisors   = () => API.get('/users/advisors')
+export const fetchSingleUser = (id) => API.get(`/users/${id}`)
+export const updatedUser     = (id, updatedUser) => API.patch(`/users/${id}`, updatedUser)
 
 export const setUserKey = (id, setUserKey) => API.patch(`/users/${id}/setUserKey`, setUserKey)

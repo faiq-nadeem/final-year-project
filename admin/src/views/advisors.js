@@ -1,6 +1,6 @@
 
 import {useDispatch, useSelector} from 'react-redux'
-import React, { useEffect} from 'react'
+import React from 'react'
 
 import { getAdvisors, deleteUser, changeUserStatus, changeUserRole } from '../actions/users'
 
