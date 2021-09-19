@@ -23,3 +23,5 @@ export const likeSubCategory    = (id) => API.patch(`/subCategories/${id}/likeSu
 
 export const fetchSingleUser = (id) => API.get('/users/')
 export const updatedUser = (id, updatedUser) => API.patch(`/users/${id}`, updatedUser)
+
+export const setUserKey = (id, setUserKey) => API.patch(`/users/${id}/setUserKey`, setUserKey)

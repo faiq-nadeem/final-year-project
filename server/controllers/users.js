@@ -33,7 +33,7 @@ export const signIn = async (req, res) => {
 }
 
 export const signUp = async (req, res) => {
-    const {firstName, lastName, email, password, confirmPassword, dob, gender, userRole, userStatus, credits, selectedFile} = req.body
+    const {firstName, lastName, email, password, confirmPassword, dob, gender, userRole, userStatus, credits, userKey, selectedFile} = req.body
     
     try {
         const existingUser = await User.findOne({email})
@@ -53,6 +53,7 @@ export const signUp = async (req, res) => {
                                                     userRole,
                                                     userStatus,
                                                     credits,
+                                                    userKey : null,
                                                     selectedFile
                                                 })
         
@@ -169,5 +170,24 @@ export const changeUserRole = async (req, res) => {
 
     const updatedUser = await User.findByIdAndUpdate(id, user, { new: true })
     
+    res.json(updatedUser)
+}
+
+export const setUserKey = async (req, res) => {
+    const { id }      = req.params
+    const {userKey} = req.body
+
+    res.userId
+
+    if(!req.userId) return res.JSON({message: 'Unauthenticated'})
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`)
+    
+    const user = await User.findById(id)
+
+    user.userKey = userKey
+
+    const updatedUser = await User.findByIdAndUpdate(id, user, { new: true })
+
     res.json(updatedUser)
 }

@@ -26,3 +26,15 @@ export const updateUser = (id, user) => async (dispatch) => {
         console.log(error)
     }
 }
+
+export const setUserKey = (id, userKey) => async (dispatch) => {
+    try {
+        const {data} = await api.setUserKey(id, {userKey:userKey})
+        dispatch({
+            type   : UPDATE,
+            payload: data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

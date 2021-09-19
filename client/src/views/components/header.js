@@ -73,7 +73,7 @@ const Header = () => {
                                 user?.result?.userRole === 'advisor' && (
                                     
                                     <li>
-                                        <Link to="/Live">Go Live! </Link>
+                                        <Link to="/Stream">Go Live! </Link>
                                     </li>
                                 )
                             }

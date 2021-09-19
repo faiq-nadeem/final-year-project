@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
     userRole    : {type: String, required:true},
     userStatus  : {type: String, required:true},
     selectedFile: {type: String, required:true},
+    userKey     : {type: String},
     id          : {type: String}
 })
 

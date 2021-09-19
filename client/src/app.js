@@ -12,6 +12,7 @@ import About from './views/about'
 import Contact from './views/contact'
 import Blogs from './views/blogs'
 import Account from './views/account'
+import Stream from './views/stream'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path = "/Contact" exact component    = {Contact} />
                 <Route path = "/Blogs" exact component      = {Blogs} />
                 <Route path = "/Account" exact component    = {Account} />
+                <Route path = "/Stream" exact component     = {Stream} />
               </Switch>
               
         <Footer />
