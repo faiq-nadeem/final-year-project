@@ -191,3 +191,27 @@ export const setUserKey = async (req, res) => {
 
     res.json(updatedUser)
 }
+
+export const addUserCredits = async (req, res) => {
+    const { id }    = req.params
+    const {credits} = req.body
+
+    res.userId
+
+    if(!req.userId) return res.JSON({message: 'Unauthenticated'})
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`)
+    
+    // const user = await User.findById(id)
+
+    // user.credits = user.credits
+
+    const updatedUser = await User.findOneAndUpdate(
+                                                        { '_id': id },
+                                                        { '$inc': {
+                                                        credits: credits }
+                                                        }
+                                                    )
+
+    res.json(updatedUser)
+}

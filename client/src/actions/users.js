@@ -51,3 +51,15 @@ export const setUserKey = (id, userKey) => async (dispatch) => {
         console.log(error)
     }
 }
+
+export const addUserCredits = (id, credits) => async (dispatch) => {
+    try {
+        const {data} = await api.addUserCredits(id, {credits:credits})
+        dispatch({
+            type   : UPDATE,
+            payload: data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

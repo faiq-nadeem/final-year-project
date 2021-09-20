@@ -25,4 +25,5 @@ export const fetchAdvisors   = () => API.get('/users/advisors')
 export const fetchSingleUser = (id) => API.get(`/users/${id}`)
 export const updatedUser     = (id, updatedUser) => API.patch(`/users/${id}`, updatedUser)
 
-export const setUserKey = (id, setUserKey) => API.patch(`/users/${id}/setUserKey`, setUserKey)
+export const setUserKey     = (id, setUserKey) => API.patch(`/users/${id}/setUserKey`, setUserKey)
+export const addUserCredits = (id, addUserCredits) => API.patch(`/users/${id}/addUserCredits`, addUserCredits)

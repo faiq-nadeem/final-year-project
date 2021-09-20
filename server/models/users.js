@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
     occupation  : {type: String},
     gender      : {type: String, required:true},
     birthplace  : {type: String},
-    credits     : {type: String, required:true},
+    credits     : {type: Number, required:true},
     userRole    : {type: String, required:true},
     userStatus  : {type: String, required:true},
     selectedFile: {type: String, required:true},

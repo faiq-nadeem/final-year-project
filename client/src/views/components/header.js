@@ -66,6 +66,9 @@ const Header = () => {
                             <li>
                                 <Link to="/Blogs">Blog</Link>
                             </li>
+                            <li>
+                                <Link to="/Pricing">Pricing</Link>
+                            </li>
                             <li className="separator">
                                 <span>|</span>
                             </li>
