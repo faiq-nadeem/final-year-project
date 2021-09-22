@@ -7,7 +7,6 @@ import { setUserKey } from '../../actions/users'
 const VideoPlayer = ({ advisorKey }) => {
   const { name, callAccepted, myVideo, userVideo, callEnded, stream, call,  myKey, setName, leaveCall, callUser,  answerCall  } = useContext(SocketContext)
 
-  const [idToCall, setIdToCall] = useState('')
   const dispatch                = useDispatch()
   const user                    = JSON.parse(localStorage.getItem('profile'))
 
@@ -23,7 +22,7 @@ const VideoPlayer = ({ advisorKey }) => {
                 user?.result?.userRole === 'advisor' && (
                   <div className="form-group">
                     <input className="my-form-control" label="Name" value={user?.result?.name} hidden/>
-                    <button type="button" className="custom-button" onClick={() => dispatch(setUserKey( user?.result?._id, myKey))} >Make Me Live</button>
+                    <button type="button" className="custom-button" onClick={() => dispatch(setUserKey( user?.result?._id, myKey))}>Make Me Live</button>
                   </div>
                 )
               }
@@ -53,7 +52,7 @@ const VideoPlayer = ({ advisorKey }) => {
           </form>
           {call.isReceivingCall && !callAccepted && (
             <div>
-              <h1>{call.name} is calling:</h1>
+              <h5>You are getting a call: {call.name}</h5>
               <button onClick={answerCall}>
                 Answer
               </button>

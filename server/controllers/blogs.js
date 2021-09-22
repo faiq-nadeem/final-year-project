@@ -59,8 +59,7 @@ export const likeBlog = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No blog with id: ${id}`)
     
-    const blog = await Blog.findById(id)
-
+    const blog  = await Blog.findById(id)
     const index = blog.likes.findIndex((id) => id === String(req.userId))
 
     if(index === -1){
