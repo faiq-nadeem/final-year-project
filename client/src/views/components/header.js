@@ -17,7 +17,7 @@ const Header = () => {
         dispatch({
             type: LOGOUT
         })
-        history.push('/')
+        history.push('/Auth')
         setUser(null)
     }
 

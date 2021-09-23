@@ -15,7 +15,8 @@ const Navbar = () => {
         dispatch({
             type: LOGOUT
         })
-        history.push('/')
+        history.push('/Auth')
+        window.location.reload()
         setUser(null)
     }
 

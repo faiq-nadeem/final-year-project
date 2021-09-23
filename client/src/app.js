@@ -13,10 +13,7 @@ import About from './views/about'
 import Contact from './views/contact'
 import Blogs from './views/blogs'
 import Profile from './views/profile'
-<<<<<<< HEAD
 import Pricing from './views/pricing'
-=======
->>>>>>> 11ebf89af706088f3464060d1cd2ff634e7573b2
 import Account from './views/account'
 import Stream from './views/stream'
 
@@ -36,10 +33,7 @@ function App() {
                 <Route path = "/Contact" exact component    = {Contact} />
                 <Route path = "/Blogs" exact component      = {Blogs} />
                 <Route path = "/Profile" exact component    = {Profile} />
-<<<<<<< HEAD
                 <Route path = "/Pricing" exact component    = {Pricing} />
-=======
->>>>>>> 11ebf89af706088f3464060d1cd2ff634e7573b2
                 <Route path = "/Account" exact component    = {Account} />
                 <Route path = "/Stream" exact component     = {Stream} />
                 <Route path = "/Payment">
