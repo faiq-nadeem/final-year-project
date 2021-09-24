@@ -6,7 +6,7 @@ const Footer = () => {
         <div>
             <footer className="footer-section">
                 <img className="shape1" src="assets/images/footer/f-shape.png" alt="" />
-                <img className="shape2" src="assets/images/footer/flower01.png" alt="" />
+                {/* <img className="shape2" src="assets/images/footer/flower01.png" alt="" /> */}
                 <img className="shape3" src="assets/images/footer/right-shape.png" alt="" />
                 <div className="newslater-section">
                     <div className="container">

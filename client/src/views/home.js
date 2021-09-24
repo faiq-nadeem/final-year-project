@@ -1,6 +1,16 @@
+import {useDispatch, useSelector} from 'react-redux'
 import React from 'react'
+import moment from 'moment'
+
+import { getBlogs } from '../actions/blogs'
 
 const Home = () => {
+
+    const dispatch = useDispatch()
+    const blogs    = useSelector((state) => state.blogs)
+    
+    dispatch(getBlogs())
+
     return (
         <div>
             <section className="banner-section">
@@ -463,152 +473,67 @@ const Home = () => {
                                         That is what learning is...
                                     </h6>
                                     <h2 className="title wow fadeInUp">
-                                        Success Stories
+                                        OUR BLOGS
                                     </h2>
                                     <p className="text wow fadeInUp">
-                                        Some of the positive feedback from student and learners all over the world
+                                        Some of the positive News and guidelines from experts and learners all over the world
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-story-box wow fadeInUp" data-wow-delay="0.1s">
-                                <div className="img">
-                                    <img src="assets/images/sucess/img1.jpg" alt="" />
-                                </div>
-                                <div className="content">
-                                    <div className="author">
-                                        <img src="assets/images/sucess/p1.png" alt="" />
-                                        <span></span>
+
+                        { blogs.map((blog) => (
+                            <div className="col-lg-4 col-md-6 pt-4">
+                                <div className="single-story-box wow fadeInUp" data-wow-delay="0.1s">
+                                    <div className="img">
+                                        <img src={blog.selectedFile} alt="" />
                                     </div>
-                                    <h4 className="title">
-                                        I mastered Graphic designing here. I Got Great Experience and helped By True Experts...
-                                    </h4>
-                                    <p className="date">
-                                        December 10, 2021
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <ul className="box-social-links">
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-facebook-f"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-instagram"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <div className="content">
+                                        {/* <div className="author">
+                                            <img src="assets/images/sucess/p1.png" alt="" />
+                                            <span></span>
+                                        </div> */}
+                                        <h4 className="title">
+                                            {blog.title}
+                                        </h4>
+                                        <p>
+                                            {blog.message}
+                                        </p>
+                                        <p className="date">
+                                            {moment(blog.createdAt).fromNow()}
+                                        </p>
                                     </div>
-                                    <div className="right">
-                                        <a href="link.php">
-                                            Read More<i className="fas fa-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-story-box wow fadeInUp" data-wow-delay="0.2s">
-                                <div className="img">
-                                    <img src="assets/images/sucess/img2.png" alt="" />
-                                </div>
-                                <div className="content">
-                                    <div className="author">
-                                        <img src="assets/images/sucess/p2.png" alt="" />
-                                        <span></span>
-                                    </div>
-                                    <h4 className="title">
-                                    Learned Artificial Intelligence and Machine Learning. 
-                                    Over all Transformed my career. 
-                                    </h4>
-                                    <p className="date">
-                                        December 11, 2021
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <ul className="box-social-links">
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-facebook-f"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-instagram"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div className="right">
-                                        <a href="link.php">
-                                            Read More<i className="fas fa-arrow-right"></i>
-                                        </a>
+                                    <div className="box-footer">
+                                        {/* <div className="left">
+                                            <ul className="box-social-links">
+                                                <li>
+                                                    <a href="link.php">
+                                                        <i className="fab fa-facebook-f"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="link.php">
+                                                        <i className="fab fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="link.php">
+                                                        <i className="fab fa-instagram"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div> */}
+                                        {/* <div className="right">
+                                            <a href="link.php">
+                                                Read More<i className="fas fa-arrow-right"></i>
+                                            </a>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-4 col-md-6">
-                            <div className="single-story-box wow fadeInUp" data-wow-delay="0.3s">
-                                <div className="img">
-                                    <img src="assets/images/sucess/img3.png" alt="" />
-                                </div>
-                                <div className="content">
-                                    <div className="author">
-                                        <img src="assets/images/sucess/p3.png" alt="" />
-                                        <span></span>
-                                    </div>
-                                    <h4 className="title">
-                                        Improved my English Speaking Skills. The Experts Are Very Passionate
-                                    </h4>
-                                    <p className="date">
-                                        December 14, 2021
-                                    </p>
-                                </div>
-                                <div className="box-footer">
-                                    <div className="left">
-                                        <ul className="box-social-links">
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-facebook-f"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="link.php">
-                                                    <i className="fab fa-instagram"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div className="right">
-                                        <a href="link.php">
-                                            Read More<i className="fas fa-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
