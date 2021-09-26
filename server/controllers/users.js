@@ -12,10 +12,10 @@ export const signIn = async (req, res) => {
 
     try {
         const existingUser = await User.findOne({email})
-        if(!existingUser) return res.status(404).json({message:"user doesn't exist"})
+        if(!existingUser) return res.status(200).json({message:"user doesn't exist"})
 
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password)
-        if(!isPasswordCorrect) return res.status(400).json({message:"invalid credentials"})
+        if(!isPasswordCorrect) return res.status(200).json({message:"invalid credentials / Password"})
 
         const token = jwt.sign({
             email: existingUser.email,
@@ -27,7 +27,7 @@ export const signIn = async (req, res) => {
             token
         })
     } catch (error) {
-        res.status(500).json({message: ' Something Went Wrong'})
+        res.status(200).json({message: 'Something Went Wrong'})
         // console.log(error)
     }
 }
@@ -38,10 +38,10 @@ export const signUp = async (req, res) => {
     try {
         const existingUser = await User.findOne({email})
         if(existingUser) {
-            return res.status(400).json({message:"user Already exist"})
+            return res.status(200).json({message:"user Already exist"})
         }
         
-        if(password !== confirmPassword) return res.status(400).json({message:"Password didn't match"})
+        if(password !== confirmPassword) return res.status(200).json({message:"Password didn't match"})
 
         const hashedPassword = await bcrypt.hash(password, 12)
         const result         = await User.create({
@@ -68,7 +68,7 @@ export const signUp = async (req, res) => {
         })
 
     } catch (error) {
-        res.status(500).error
+        res.status(200).error
     }
 
 }

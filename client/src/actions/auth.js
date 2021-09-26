@@ -10,7 +10,9 @@ export const signIn = (formData, history) => async (dispatch) => {
             data
         })
 
-        history.push('/')
+        if(JSON.stringify(data.message)) alert(JSON.stringify(data.message))
+
+        else history.push('/')
 
     } catch (error) {
         console.log(error)
@@ -20,13 +22,16 @@ export const signIn = (formData, history) => async (dispatch) => {
 export const signUp = (formData, history) => async (dispatch) => {
     try {
         const {data} = await api.signUp(formData)
-        // alert(JSON.stringify({data}))
+
         dispatch({
             type: AUTH,
             data
         })
 
-        history.push('/')
+        if(JSON.stringify(data.message)) alert(JSON.stringify(data.message))
+
+        else history.push('/')
+        
     } catch (error) {
         console.log(error)
     }

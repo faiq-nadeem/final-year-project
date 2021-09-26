@@ -10,9 +10,12 @@ export const signIn = (formData, history) => async (dispatch) => {
             data
         });
 
-        history.push('/')
-        
-        window.location.reload()
+        if(JSON.stringify(data.message)) alert(JSON.stringify(data.message))
+
+        else {
+            history.push('/')
+            window.location.reload()
+        }
 
     } catch (error) {
         console.log(error)
