@@ -18,10 +18,15 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
 
+app.get("/", (req, res) => {
+	res.send("hello To Skill Me Server API")
+})
+
 app.use('/blogs', blogRoutes)
 app.use('/categories', categoryRoutes)
 app.use('/subCategories', subCategoryRoutes)
 app.use('/users', userRoutes)
+
 
 const PORT = process.env.PORT
 const stripe = new Stripe('sk_test_51Jb2uWJnnXXD2F4ybVvuv3lEPd71iD9bib6Isq91MXV13iI3Y77mVVmkciznIBK7lNCa7if6RD4CtwpLTswIJYFa00CXcWD9SU');
