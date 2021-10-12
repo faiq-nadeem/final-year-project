@@ -120,7 +120,7 @@ export default function PaymentForm(props) {
         //STEP 2:
         //create a new payment request and get irs client secret + id from the server
         const intentData = await axios
-            .post("http://localhost:5000/stripe", {
+            .post("https://skill-me.herokuapp.com/stripe", {
                 //include the bet amount
                 price: totalBill,
             })
@@ -155,7 +155,7 @@ export default function PaymentForm(props) {
         // The payment has been processed! send a confirmation to the server
         if (result.paymentIntent.status === "succeeded") {
             const confirmedPayment = await axios
-                .post("http://localhost:5000/confirm-payment", {
+                .post("https://skill-me.herokuapp.com/confirm-payment", {
                     payment_id  : intentData.id,
                     payment_type: "stripe",
                 })

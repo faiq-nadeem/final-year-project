@@ -4,25 +4,25 @@ import Styles from './styles/homeStyle'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getAdvisors } from '../actions/advisors'
+import { getCategories } from '../actions/categories'
 
 export default function App() {
 
 	const dispatch = useDispatch()
-	const advisors = useSelector((state) => state.advisors)
+	const categories = useSelector((state) => state.categories)
 
 	useFocusEffect(
 		React.useCallback(() => {
-		dispatch(getAdvisors())
+		dispatch(getCategories())
 		}, [dispatch])
 	)
 
 	return (
 		<View style={Styles.container}>
-			{advisors.map((advisor) => (
-				<TouchableOpacity style={Styles.box} key={advisor._id}>
-					<Image style={Styles.image} source={{uri: advisor.selectedFile}} />
-					<Text>{advisor.name}</Text>
+			{categories.map((category) => (
+				<TouchableOpacity style={Styles.box} key={category._id}>
+					<Image style={Styles.image} source={{uri: category.selectedFile}} />
+					<Text>{category.title}</Text>
 				</TouchableOpacity>
       		))}
 		</View>

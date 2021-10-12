@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react"
+import React, {useState} from "react"
 import {useDispatch} from 'react-redux'
-import Styles from './components/Styles'
+import Styles from './styles/authStyle'
 import { SafeAreaView, TextInput, View, Text, ScrollView, Image, Keyboard, TouchableOpacity, KeyboardAvoidingView } from "react-native"
 import { Picker } from "@react-native-picker/picker"
 import { signIn, signUp } from '../actions/auth'

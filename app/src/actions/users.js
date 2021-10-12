@@ -21,23 +21,6 @@ export const getUsers = () => async (dispatch) => {
 	}
 }
 
-export const getAdvisors = () => async (dispatch) => {
-	try {
-		dispatch(loaderStatus({ status: true }))
-		
-		const { data } = await api.fetchAdvisors()
-
-		dispatch({
-			type: FETCH_ALL,
-			payload: data,
-		})
-		
-        dispatch(loaderStatus({ status: false }))
-	} catch (error) {
-		console.log(error)
-	}
-}
-
 export const getSingleUser = (id) => async (dispatch) => {
 	try {
         const { data } = await api.fetchSingleUser(id)
