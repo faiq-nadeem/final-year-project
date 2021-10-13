@@ -1,5 +1,6 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes'
 import * as api from '../api'
+import { getCategories } from './categories'
 
 // Action Creators
 export const getSubCategories = () => async(dispatch) => {
@@ -9,6 +10,7 @@ export const getSubCategories = () => async(dispatch) => {
             type   : FETCH_ALL,
             payload: data
         })
+        // dispatch(getCategories())
     } catch (error) {
         console.log(error)
     }

@@ -7,7 +7,7 @@ const Users = () => {
 
     const dispatch = useDispatch()
     const user     = JSON.parse(localStorage.getItem('profile'))
-    const users    = useSelector((state) => state.users)
+    const users    = useSelector((state) => state.blogs)
 
     dispatch(getUsers())
 

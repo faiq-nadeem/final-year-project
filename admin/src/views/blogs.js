@@ -17,15 +17,16 @@ const Blogs = () => {
         title       : '',
         message     : '',
         tags        : '',
+        blogStatus  : 'active',
         selectedFile: ''
     })
 
 
     useEffect(() => {
+        dispatch(getBlogs())
         if(editBlog) setBlogData(editBlog)
-    },[editBlog])
+    },[editBlog, dispatch])
     
-    dispatch(getBlogs())
 
     const handleSubmit = (e) => {
         e.preventDefault()

@@ -1,16 +1,18 @@
 
 import {useDispatch, useSelector} from 'react-redux'
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import { getAdvisors, deleteUser, changeUserStatus, changeUserRole } from '../actions/users'
 
 const Advisors = () => {
 
-    const dispatch                  = useDispatch()
-    const user                      = JSON.parse(localStorage.getItem('profile'))
-    const users                     = useSelector((state) => state.users)
+    const dispatch = useDispatch()
+    const user     = JSON.parse(localStorage.getItem('profile'))
+    const users    = useSelector((state) => state.users)
 
-    dispatch(getAdvisors())
+    useEffect(() => {
+        dispatch(getAdvisors())
+    }, [dispatch])
 
     if(!user?.result?.name) {
         return(

@@ -23,10 +23,10 @@ const Categories = () => {
 
 
     useEffect(() => {
+        dispatch(getCategories())
         if(editCategory) setCategoryData(editCategory)
-    },[editCategory])
+    },[editCategory, dispatch])
     
-    dispatch(getCategories())
 
     const handleSubmit = (e) => {
         e.preventDefault()
