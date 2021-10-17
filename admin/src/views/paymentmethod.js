@@ -175,13 +175,13 @@ const PaymentMethod = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="link.php" className="btn btn-danger float-left" data-toggle="modal" data-target="#deleteid']; ?>">Delete card</a>
+                                    <a href="link.php" className="btn btn-danger float-left" data-toggle="modal" data-target="#deleteid'] ?>">Delete card</a>
                                     <button type="submit" className="btn btn-secondary float-right" name="edit_payment_card">Update card</button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div className="modal fade" id="deleteid']; ?>" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                    <div className="modal fade" id="deleteid'] ?>" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
                         <div className="modal-dialog modal- modal-dialog-centered modal-" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
@@ -193,7 +193,7 @@ const PaymentMethod = () => {
                                 <div className="modal-body">
                                     <p>This will delete your item. You can't undo this</p>
                                 </div>
-                                <form action="action.php?id=id']; ?>" method="POST" className="modal-footer">
+                                <form action="action.php?id=id'] ?>" method="POST" className="modal-footer">
                                     <button type="submit" className="btn btn-warning" name="delete_payment_card">Delete Card</button>
                                 </form>
                             </div>

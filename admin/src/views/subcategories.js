@@ -7,51 +7,50 @@ import { getCategories } from '../actions/categories'
 
 const SubCategories = () => {
 
-    // const [currentId, setCurrentId] = useState(null)
+    const [currentId, setCurrentId] = useState(null)
     const dispatch                  = useDispatch()
     const user                      = JSON.parse(localStorage.getItem('profile'))
-    // const subCategories             = useSelector((state) => state.subCategories)
-    const categories                = useSelector((state) => state.users)
-    // const editSubCategory           = useSelector((state) => currentId ? state.subCategories.find((e) => e._id === currentId) : null)
+    const subCategories             = useSelector((state) => state.subCategories)
+    const categories                = useSelector((state) => state.categories)
+    const editSubCategory           = useSelector((state) => currentId ? state.subCategories.find((e) => e._id === currentId) : null)
 
-    // const [subCategoryData, setSubCategoryData] = useState({
-    //     title            : '',
-    //     message          : '',
-    //     tags             : '',
-    //     categoryId       : '',
-    //     subCategoryStatus: 'active',
-    //     selectedFile     : ''
-    // })
+    const [subCategoryData, setSubCategoryData] = useState({
+        title            : '',
+        message          : '',
+        tags             : '',
+        categoryId       : '',
+        subCategoryStatus: 'active',
+        selectedFile     : ''
+    })
 
     useEffect(() => {
+        dispatch(getCategories())
         dispatch(getSubCategories())
         // if(editSubCategory) setSubCategoryData(editSubCategory)
     },[dispatch])
 
-    alert(JSON.stringify(categories))
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
+        if(currentId){
+            dispatch(updateSubCategory(currentId, {...subCategoryData, name: user?.result?.name}))
+        } else {
+            dispatch(createSubCategory({...subCategoryData, name: user?.result?.name}))
+        }
+        clear()
+    }
 
-    //     if(currentId){
-    //         dispatch(updateSubCategory(currentId, {...subCategoryData, name: user?.result?.name}))
-    //     } else {
-    //         dispatch(createSubCategory({...subCategoryData, name: user?.result?.name}))
-    //     }
-    //     clear()
-    // }
-
-    // const clear = () => {
-    //     setCurrentId(null)
-    //     setSubCategoryData({
-    //         title       : '',
-    //         message     : '',
-    //         tags        : '',
-    //         categoryId  : '',
-    //         subCategoryStatus: 'active',
-    //         selectedFile: ''
-    //     })
-    // }
+    const clear = () => {
+        setCurrentId(null)
+        setSubCategoryData({
+            title       : '',
+            message     : '',
+            tags        : '',
+            categoryId  : '',
+            subCategoryStatus: 'active',
+            selectedFile: ''
+        })
+    }
 
     if(!user?.result?.name) {
         return(
@@ -81,7 +80,7 @@ const SubCategories = () => {
                                 <div className="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
                                     <div className="modal-dialog modal- modal-dialog-centered modal-" role="document">
                                         <div className="modal-content">
-                                            {/* <form onSubmit={handleSubmit}>
+                                            <form onSubmit={handleSubmit}>
                                                 <div className="modal-header">
                                                     <h6 className="modal-title" id="modal-title-default">Add new sub-category</h6>
                                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
@@ -143,7 +142,7 @@ const SubCategories = () => {
                                                     <button type="submit" className="btn btn-secondary">Submit</button>
                                                     <button type="button" className="btn btn-warning" onClick={clear}>Clear</button>
                                                 </div>
-                                            </form> */}
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -165,53 +164,53 @@ const SubCategories = () => {
                                     <div className="card-body">
                                         <ul className="list-group list-group-flush list my--3">
                                             {
-                                                // subCategories.map(subCategory => (
-                                                //         subCategory.categoryId === category._id ? (
-                                                //             <li className="list-group-item px-0" key={subCategory._id}>
-                                                //                 <div className="row align-items-center">
-                                                //                     <img src={category.selectedFile} style={{width: '50px', borderRadius:'10px'}} alt="user" />
-                                                //                     <div className="col ml--2">
-                                                //                         <h4 className="mb-0">
-                                                //                             {subCategory.title}
-                                                //                         </h4>
-                                                //                     </div>
-                                                //                     <div className="col-auto text-center row">
-                                                //                         {subCategory.subCategoryStatus === 'active' ? (
-                                                //                             <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeSubCategoryStatus(subCategory._id))}><i className="fa fa-eye"></i></button>
-                                                //                         ) : (
-                                                //                             <button type="button" className="btn btn-warning mr-0"  onClick={() => dispatch(changeSubCategoryStatus(subCategory._id))}><i className="fa fa-eye-slash"></i></button>
-                                                //                         )}
-                                                //                         <button type="button" className="btn btn-secondary mr-0" data-toggle="modal" data-target="#new" onClick={() => setCurrentId(subCategory._id)}><i className="mr-0 fa fa-edit"></i></button>
-                                                //                         <button type="button" className="btn btn-warning mr-0" data-toggle="modal" data-target={"#delete"+subCategory.id}><i className="ni ni-fat-remove"></i></button>
-                                                //                     </div>
-                                                //                 </div>
+                                                subCategories.map(subCategory => (
+                                                        subCategory.categoryId === category._id ? (
+                                                            <li className="list-group-item px-0" key={subCategory._id}>
+                                                                <div className="row align-items-center">
+                                                                    <img src={category.selectedFile} style={{width: '50px', borderRadius:'10px'}} alt="user" />
+                                                                    <div className="col ml--2">
+                                                                        <h4 className="mb-0">
+                                                                            {subCategory.title}
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div className="col-auto text-center row">
+                                                                        {subCategory.subCategoryStatus === 'active' ? (
+                                                                            <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeSubCategoryStatus(subCategory._id))}><i className="fa fa-eye"></i></button>
+                                                                        ) : (
+                                                                            <button type="button" className="btn btn-warning mr-0"  onClick={() => dispatch(changeSubCategoryStatus(subCategory._id))}><i className="fa fa-eye-slash"></i></button>
+                                                                        )}
+                                                                        <button type="button" className="btn btn-secondary mr-0" data-toggle="modal" data-target="#new" onClick={() => setCurrentId(subCategory._id)}><i className="mr-0 fa fa-edit"></i></button>
+                                                                        <button type="button" className="btn btn-warning mr-0" data-toggle="modal" data-target={"#delete"+subCategory.id}><i className="ni ni-fat-remove"></i></button>
+                                                                    </div>
+                                                                </div>
                                                                             
-                                                //                 <div className="modal fade" id={"delete"+subCategory.id} tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-                                                //                     <div className="modal-dialog modal- modal-dialog-centered modal-" role="document">
-                                                //                         <div className="modal-content">
-                                                //                             <form>
-                                                //                                 <div className="modal-header">
-                                                //                                     <h6 className="modal-title" id="modal-title-default">Are You Sure?</h6>
-                                                //                                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                //                                         <span aria-hidden="true">×</span>
-                                                //                                     </button>
-                                                //                                 </div>
-                                                //                                 <div className="modal-body">
-                                                //                                     <p>This will delete your item. You can't undo this</p>
-                                                //                                 </div>
-                                                //                                 <div className="modal-footer">
-                                                //                                     <button type="button" className="btn btn-warning" data-dismiss="modal" onClick={() => dispatch(deleteSubCategory(subCategory._id))}>Delete</button>
-                                                //                                 </div>
-                                                //                             </form>
-                                                //                         </div>
-                                                //                     </div>
-                                                //                 </div>
-                                                //             </li>
-                                                //         ) : (
-                                                //             <div></div>
-                                                //         )
-                                                //     )
-                                                // )
+                                                                <div className="modal fade" id={"delete"+subCategory.id} tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                                                                    <div className="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                                                                        <div className="modal-content">
+                                                                            <form>
+                                                                                <div className="modal-header">
+                                                                                    <h6 className="modal-title" id="modal-title-default">Are You Sure?</h6>
+                                                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div className="modal-body">
+                                                                                    <p>This will delete your item. You can't undo this</p>
+                                                                                </div>
+                                                                                <div className="modal-footer">
+                                                                                    <button type="button" className="btn btn-warning" data-dismiss="modal" onClick={() => dispatch(deleteSubCategory(subCategory._id))}>Delete</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        ) : (
+                                                            <div></div>
+                                                        )
+                                                    )
+                                                )
                                             }
                                         </ul>
                                     </div>

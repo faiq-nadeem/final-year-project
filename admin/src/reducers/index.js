@@ -5,5 +5,6 @@ import subCategories from './subCategories'
 import blogs from './blogs'
 import users from './users'
 import auth from './auth'
+import isLoading from './loader'
 
-export default combineReducers({ categories, subCategories, blogs, users, auth})
+export default combineReducers({ categories, subCategories, blogs, users, auth, isLoading})

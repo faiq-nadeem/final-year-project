@@ -71,9 +71,8 @@ const Experts = () => {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-lg-4 col-md-6">
-                            
-                            {users.map(user => (
+                        {users.map(user => (
+                            <div className="col-lg-4 col-md-6">
                                 <div className="single-community-box">
                                     <div className="img">
                                         <img src={user.selectedFile} alt="" />
@@ -95,8 +94,8 @@ const Experts = () => {
                                         </div>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

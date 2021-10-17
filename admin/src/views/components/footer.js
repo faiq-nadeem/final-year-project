@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-lg-6">
                         <div className="copyright text-center  text-lg-left  text-muted">
-                            &copy; 2021 <a href="nill" className="font-weight-bold ml-1" target="_blank">ISOSLES</a>
+                            &copy 2021 <a href="nill" className="font-weight-bold ml-1" target="_blank">ISOSLES</a>
                         </div>
                     </div>
                     <div className="col-lg-6">
