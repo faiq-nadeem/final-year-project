@@ -5,6 +5,7 @@ import { TouchableOpacity, View } from "react-native"
 
 import Categories from '../Categories'
 import Advisors from '../Advisors'
+import Interviewers from '../Interviewers'
 import Blogs from '../Blogs'
 import Profile from "../Profile"
 
@@ -38,7 +39,7 @@ const CustomTabBarButton = ({children, onPress}) => (
 function App() {
 	
   return (
-			<Tab.Navigator initialRouteName='Home'
+			<Tab.Navigator initialRouteName='Advisors'
 			  	screenOptions = {{
 					  tabBarShowLabel: false,
 					  tabBarStyle    : Styles.tabBar
@@ -57,7 +58,7 @@ function App() {
 						headerShown: false
 					}}
 				/>
-				<Tab.Screen name="Advisors" component={Advisors}
+				<Tab.Screen name="Interviewers" component={Interviewers}
 					options={{
 						tabBarIcon: ({focused}) => (
 							<Icon
@@ -69,7 +70,7 @@ function App() {
 						headerShown: false
 					}}
 				/>
-				<Tab.Screen name="Home" component={Advisors}
+				<Tab.Screen name="Advisors" component={Advisors}
 					options={{
 						tabBarIcon: ({focused}) => (
 							<Icon

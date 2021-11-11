@@ -1,4 +1,4 @@
-import { FETCH_ALL, FETCH, UPDATE } from "../constants/actionTypes"
+import { FETCH_ALL_USERS, FETCH_USER, UPDATE_USER } from "../constants/actionTypes"
 import * as api from "../api"
 
 import { loaderStatus } from './loader'
@@ -11,7 +11,7 @@ export const getUsers = () => async (dispatch) => {
 		const { data } = await api.fetchUsers()
 
 		dispatch({
-			type: FETCH_ALL,
+			type: FETCH_ALL_USERS,
 			payload: data,
 		})
 
@@ -26,7 +26,7 @@ export const getSingleUser = (id) => async (dispatch) => {
         const { data } = await api.fetchSingleUser(id)
         
 		dispatch({
-			type: FETCH,
+			type: FETCH_USER,
 			payload: data,
 		})
 	} catch (error) {
@@ -38,7 +38,7 @@ export const updateUser = (id, user) => async (dispatch) => {
 	try {
 		const { data } = await api.updatedUser(id, user)
 		dispatch({
-			type: UPDATE,
+			type: UPDATE_USER,
 			payload: data,
 		})
 	} catch (error) {

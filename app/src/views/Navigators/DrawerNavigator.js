@@ -18,7 +18,7 @@ function App() {
 	
   return (
 		<Drawer.Navigator >
-			<Drawer.Screen name="Skill Me" component={TabNaviagtor} />
+			<Drawer.Screen name="Ask Expert Now" component={TabNaviagtor} />
 		</Drawer.Navigator>
 	)
 }

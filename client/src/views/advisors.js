@@ -3,14 +3,17 @@ import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 
 import { getAdvisors } from '../actions/advisors'
+import { getCategories } from '../actions/categories'
 
 const Experts = () => {
 
-    const dispatch = useDispatch()
-    const advisors    = useSelector((state) => state.advisors)
+    const dispatch   = useDispatch()
+    const advisors   = useSelector((state) => state.advisors)
+    const categories = useSelector((state) => state.categories)
 
     useEffect(() => {
         dispatch(getAdvisors())
+        dispatch(getCategories())
     }, [dispatch])
 
     return(
@@ -47,16 +50,11 @@ const Experts = () => {
                                     </Link>
                                 </div>
                                 <div className="right">
-                                    <span className="span">
-                                        Order By : 
+                                    <span className="span align-bottom">
+                                        Search By Name : 
                                     </span>
                                     <div className="filter-right">
-                                        <select className="nice-select select-bar">
-                                            <option value="">Latest Active</option>
-                                            <option value="">NEW</option>
-                                            <option value="">OLD</option>
-                                            <option value="">POPULAR</option>
-                                        </select>
+                                        <input style={{borderRadius:100}} type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -79,10 +77,12 @@ const Experts = () => {
                                     </div>
                                     <div className="box-footer">
                                         <div className="left">
-                                            <i className="fas fa-globe-americas"></i> Live
-                                        </div>
-                                        <div className="right">
-                                            <i className="fas fa-advisors"></i> 100
+                                            <i className="fas fa-globe-americas"></i>
+                                            {categories.map(category => (
+                                                category._id === advisor.userCategory && (
+                                                    category.title
+                                                )
+                                            ))}
                                         </div>
                                     </div>
                                 </div>

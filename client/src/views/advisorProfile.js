@@ -1,7 +1,10 @@
 import {useDispatch, useSelector} from 'react-redux'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import {Link} from 'react-router-dom'
+import moment from 'moment'
+
+import { getBlogs, likeBlog } from '../actions/blogs'
 
 import { getSingleAdvisor } from '../actions/advisors'
 
@@ -10,9 +13,16 @@ const AdvisorProfile = () => {
     const location       = useLocation()
     const {advisorId}    = location.state
     const advisorProfile = useSelector((state) => state.advisorProfile)
+    const blogs          = useSelector((state) => state.blogs)
+    const localUser      = useState(JSON.parse(localStorage.getItem('profile')))
+
+    const [advisorRating, setAdvisorsRating] = useState({
+        review: '',
+    })
 
     useEffect(() => {
         dispatch(getSingleAdvisor(advisorId))
+        dispatch(getBlogs())
     }, [dispatch, advisorId])
 
     return (
@@ -41,7 +51,7 @@ const AdvisorProfile = () => {
             <section class="profile-section">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-xl-4 col-lg-5 col-md-7">
+                        <div class="col-lg-12">
                             <div class="left-profile-area">
                                 <div class="profile-about-box">
                                     <div class="top-bg"></div>
@@ -79,99 +89,56 @@ const AdvisorProfile = () => {
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="profile-uplodate-photo">
-                                    <h4 class="p-u-p-header">
-                                        <i class="fas fa-camera"></i> 21 Upload Photos 
-                                    </h4>
-                                    <div class="p-u-p-list">
-                                        <div class="my-col">
-                                            <div class="img">
-                                                <img src="assets/images/profile/up1.jpg" alt="" />
-                                                <div class="overlay">
-                                                    <a href="assets/images/profile/up1.jpg" class="img-popup"><i class="fas fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="my-col">
-                                            <div class="img">
-                                                <img src="assets/images/profile/up2.jpg" alt="" />
-                                                <div class="overlay">
-                                                    <a href="assets/images/profile/up2.jpg" class="img-popup"><i class="fas fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="my-col">
-                                            <div class="img">
-                                                <img src="assets/images/profile/up3.jpg" alt="" />
-                                                <div class="overlay">
-                                                    <a href="assets/images/profile/up3.jpg" class="img-popup"><i class="fas fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="my-col">
-                                            <div class="img">
-                                                <img src="assets/images/profile/up4.jpg" alt="" />
-                                                <div class="overlay">
-                                                    <a href="assets/images/profile/up4.jpg" class="img-popup"><i class="fas fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="my-col">
-                                            <div class="img">
-                                                <img src="assets/images/profile/up5.jpg" alt="" />
-                                                <div class="overlay">
-                                                    <a href="assets/images/profile/up5.jpg" class="img-popup"><i class="fas fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="my-col">
-                                            <div class="img">
-                                                <img src="assets/images/profile/up6.jpg" alt="" />
-                                                <div class="overlay">
-                                                    <a href="assets/images/profile/up6.jpg" class="img-popup"><i class="fas fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="profile-meta-box">
+                                    <textarea placeholder="Please Rate The Advisors And Enter Reviews Here..."  onChange = {(e) => setAdvisorsRating({...advisorRating, review: e.target.value})}></textarea>
+                                    <button>Submit</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-lg-6">
-                            <div class="profile-main-content">
-                                <div class="profile-single-post">
-                                    <div class="p-s-p-header-area">
-                                        <div class="img">
-                                            <img src={advisorProfile.selectedFile} alt="" />
-                                            <div class="active-online"></div>
+                        <div class="col-lg-12">
+                            <div class="profile-main-content row">
+                                
+                                { blogs.map((blog) => (
+                                    blog.creator === advisorProfile._id && (
+                                        <div class="profile-single-post col-lg-4">
+                                            <div class="p-s-p-header-area">
+                                                <div class="img">
+                                                    <img src={advisorProfile.selectedFile} alt="" />
+                                                    <div class="active-online"></div>
+                                                </div>
+                                                <h6 class="name">
+                                                    {blog.title}
+                                                </h6>
+                                                <span class="post-time">
+                                                    . {moment(blog.createdAt).fromNow()}
+                                                </span>
+                                            </div>
+                                            <div class="p-s-p-content">
+                                                <img src={blog.selectedFile} alt="" />
+                                                <p>
+                                                    {blog.message}
+                                                </p>
+                                            </div>
+                                            <div class="p-s-p-content-footer">
+                                                <button onClick={() => dispatch(likeBlog(blog._id))}>
+                                                    {                                                        
+                                                        (blog.likes.length > 0) ? (
+                                                            blog.likes.find((like) => like === (localUser?.result?.googleId || localUser?.result?._id))
+                                                            ? (
+                                                                <div>{blog.likes.length > 2 ? `You and ${blog.likes.length - 1} others` : `${blog.likes.length} ${blog.likes.length > 1 ? 's' : ''}`}</div>
+                                                            ) : (
+                                                                <div><i className="fas fa-thumbs-up">{blog.likes.length}</i>{blog.likes.length === 1 ? 'Like' : 'Likes'}</div>
+                                                            )
+                                                        ) : (
+                                                            <div><i className="fas fa-thumbs-up"></i></div>
+                                                        )
+                                                    }
+                                                </button>
+                                            </div>
                                         </div>
-                                        <h6 class="name">
-                                            {advisorProfile.name}
-                                        </h6>
-                                        <span class="is-varify">
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                        <span class="usewrname">
-                                            @{advisorProfile.name}
-                                        </span>
-                                        <span class="post-time">
-                                            . 19h
-                                        </span>
-                                    </div>
-                                    <div class="p-s-p-content">
-                                        <img src={advisorProfile.selectedFile} alt="" />
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur 
-                                            adipiscing elit. Nam vel porta felis.
-                                        </p>
-                                    </div>
-                                    <div class="p-s-p-content-footer">
-                                        <div class="left">
-                                            <a href="/" class="comment">Like</a>
-                                            <a href="/" class="/">1</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="/" class="load-more">Load More..</a>
+                                    )
+                                ))}
+                                
                             </div>
                         </div>
                     </div>

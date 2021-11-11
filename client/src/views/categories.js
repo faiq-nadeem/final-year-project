@@ -39,113 +39,7 @@ const Categories = () => {
                 <div className="container">
                     <div className="row">
 
-                        <div className="col-lg-3 product-md-grid">
-                            <div className="widget-1 widget-check">
-                                <div className="widget-1-body">
-                                    <h6 className="subtitle">Gender</h6>
-                                    <div className="check-area">
-                                        <div className="form-group">
-                                            <input type="checkbox" name="gender" id="men" /><label for="men">Men (30)</label>
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="checkbox" name="gender" id="women" /><label for="women">Women (25)</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="widget-1 widget-check">
-                                <div className="widget-1-body">
-                                    <h6 className="subtitle">Status</h6>
-                                    <div className="check-area">
-                                        <div className="form-group">
-                                            <input type="checkbox" name="status" id="live" /><label htmlFor="live">Live (20)</label>
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="checkbox" name="status" id="offline" /><label htmlFor="offline">Offline (15)</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="widget-1 widget-check rating">
-                                <div className="widget-1-body">
-                                    <h6 className="subtitle">Rating</h6>
-                                    <div className="check-area">
-                                        <div className="form-group">
-                                            <input type="checkbox" name="mode" id="s1" /><label for="s1">
-                                                <span className="text">
-                                                    5 star(9)
-                                                </span>
-                                                <span className="rating">
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="checkbox" name="mode" id="s2" /><label for="s2">
-                                                <span className="text">
-                                                    4 star(9)
-                                                </span>
-                                                <span className="rating">
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="checkbox" name="mode" id="s3" /><label for="s3">
-                                                <span className="text">
-                                                    3 star(9)
-                                                </span>
-                                                <span className="rating">
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="checkbox" name="mode" id="s4" /><label for="s4">
-                                                <span className="text">
-                                                    2 star(9)
-                                                </span>
-                                                <span className="rating">
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div className="form-group">
-                                            <input type="checkbox" name="mode" id="s5" /><label for="s5">
-                                                <span className="text">
-                                                    1 star(9)
-                                                </span>
-                                                <span className="rating">
-                                                    <i className="fas fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                    <i className="far fa-star"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
-
-                        <div className="col-lg-9">
+                        <div className="col-lg-12">
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="filter-area">
@@ -153,35 +47,9 @@ const Categories = () => {
                                             
                                             <ul className="nav grid-button tab-menu"   role="tablist">
                                                 <Link to="/Advisors" data-toggle="modal" data-target="#exampleModalCenter">
-                                                    <i className="fa fa-users"></i>  Back To Community
+                                                    <i className="fa fa-users"></i>  Back To Advisors
                                                 </Link> 
                                             </ul>
-                                            <div className="right">
-                                                <div className="item">
-                                                    <span className="show">Show :</span>
-                                                    <select className="select-bar">
-                                                        <option value="12">12</option>
-                                                        <option value="15">15</option>
-                                                        <option value="18">18</option>
-                                                        <option value="21">21</option>
-                                                        <option value="24">24</option>
-                                                        <option value="27">27</option>
-                                                        <option value="30">30</option>
-                                                    </select>
-                                                </div>
-                                                <div className="item">
-                                                    <span className="show">Sort By :</span>
-                                                    <select className="select-bar">
-                                                        <option value="showing">New</option>
-                                                        <option value="exclusive">exclusive</option>
-                                                        <option value="trending">trending</option>
-                                                        <option value="most-view">most view</option>
-                                                    </select>
-                                                </div>
-                                                <div className="serch-icon">
-                                                    <i className="fas fa-search"></i>
-                                                </div>
-                                            </div>
                                         </div>
                                         
                                         <div className="search-box">

@@ -28,10 +28,11 @@ export const likeCategory    = (id) => API.patch(`/categories/${id}/likeCategory
 export const fetchSubCategories = () => API.get('/subCategories')
 export const likeSubCategory    = (id) => API.patch(`/subCategories/${id}/likeSubCategory `)
 
-export const fetchUsers      = () => API.get('/users')
-export const fetchAdvisors   = () => API.get('/users/advisors')
-export const fetchSingleUser = (id) => API.get(`/users/${id}`)
-export const updatedUser     = (id, updatedUser) => API.patch(`/users/${id}`, updatedUser)
+export const fetchUsers        = () => API.get('/users')
+export const fetchAdvisors     = () => API.get('/users/advisors')
+export const fetchInterviewers = () => API.get('/users/interviewers')
+export const fetchSingleUser   = (id) => API.get(`/users/${id}`)
+export const updatedUser       = (id, updatedUser) => API.patch(`/users/${id}`, updatedUser)
 
 export const setUserKey     = (id, setUserKey) => API.patch(`/users/${id}/setUserKey`, setUserKey)
 export const addUserCredits = (id, addUserCredits) => API.patch(`/users/${id}/addUserCredits`, addUserCredits)
