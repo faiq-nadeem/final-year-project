@@ -2,16 +2,23 @@
 import {useDispatch, useSelector} from 'react-redux'
 import React, {useEffect} from 'react'
 
-import { getAdvisors, deleteUser, changeUserStatus, changeUserRole } from '../actions/users'
+import { getCategories } from '../actions/categories'
+import { getSubCategories } from '../actions/subCategories'
+import { getAdvisors } from '../actions/advisors'
+import { deleteUser, changeUserStatus, changeUserRole, changeUserCategory, changeUserSubCategory } from '../actions/users'
 
 const Advisors = () => {
 
-    const dispatch = useDispatch()
-    const user     = JSON.parse(localStorage.getItem('profile'))
-    const users    = useSelector((state) => state.users)
+    const dispatch      = useDispatch()
+    const user          = JSON.parse(localStorage.getItem('profile'))
+    const users         = useSelector((state) => state.advisors)
+    const categories    = useSelector((state) => state.categories)
+    const subCategories = useSelector((state) => state.subCategories)
 
     useEffect(() => {
         dispatch(getAdvisors())
+        dispatch(getCategories())
+        dispatch(getSubCategories())
     }, [dispatch])
 
     if(!user?.result?.name) {
@@ -59,6 +66,8 @@ const Advisors = () => {
                                                 <th>Gender</th>
                                                 <th>Credits</th>
                                                 <th>Role</th>
+                                                <th>Category</th>
+                                                <th>SubCategory</th>
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>
@@ -71,12 +80,49 @@ const Advisors = () => {
                                                     <td className="align-middle text-wrap">{user.dob}</td>
                                                     <td className="align-middle text-wrap">{user.gender}</td>
                                                     <td className="align-middle text-wrap">{user.credits}</td>
-                                                    <td className="align-middle">
-                                                        {user.userRole === 'user' ? (
-                                                            <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeUserRole(user._id))}>USER</button>
-                                                        ) : (
-                                                            <button type="button" className="btn btn-warning mr-0" onClick={() => dispatch(changeUserRole(user._id))}>ADVISOR</button>
-                                                        )}
+                                                    <td className="align-middle text-wrap">
+                                                        <div className="row">
+                                                            {user.userRole}
+                                                            <select className="btn btn-secondary mr-0" onChange={(e) => dispatch(changeUserRole(user._id, {userRole: e.target.value}))}>
+                                                                <option>Change Role</option>
+                                                                <option value="interviewer">Interviewer</option>
+                                                                <option value="user">User</option>
+                                                            </select>{/* {user.userRole === 'user' ? (
+                                                                <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeUserRole(user._id))}>USER</button>
+                                                            ) : (
+                                                                <button type="button" className="btn btn-warning mr-0" onClick={() => dispatch(changeUserRole(user._id))}>ADVISOR</button>
+                                                            )} */}
+                                                        </div>
+                                                    </td>
+                                                    <td className="align-middle text-wrap">
+                                                        <div className="row col">
+                                                            {categories.map(category => (
+                                                                category._id === user.userCategory && (
+                                                                    category.title
+                                                                )
+                                                            ))}
+                                                            <select className="btn btn-secondary mr-0" onChange={(e) => dispatch(changeUserCategory(user._id, {userCategory: e.target.value}))}>
+                                                                <option>Change Category</option>
+                                                                {categories.map(category => (
+                                                                    <option value={category._id}>{category.title}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td className="align-middle text-wrap">
+                                                        <div className="row col">
+                                                            {subCategories.map(subCategory => (
+                                                                subCategory._id === user.userSubCategory && (
+                                                                    subCategory.title
+                                                                )
+                                                            ))}
+                                                            <select className="btn btn-secondary mr-0" onChange={(e) => dispatch(changeUserSubCategory(user._id, {userSubCategory: e.target.value}))}>
+                                                                <option>Change SubCategory</option>
+                                                                {subCategories.map(subCategory => (
+                                                                    <option value={subCategory._id}>{subCategory.title}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
                                                     </td>
                                                     <td className="align-middle">
                                                         {user.userStatus === 'active' ? (

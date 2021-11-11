@@ -26,14 +26,17 @@ const SubCategories = () => {
     useEffect(() => {
         dispatch(getCategories())
         dispatch(getSubCategories())
-        // if(editSubCategory) setSubCategoryData(editSubCategory)
     },[dispatch])
+
+    useEffect(() => {
+        if(editSubCategory) setSubCategoryData(editSubCategory)
+    }, [editSubCategory])
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         if(currentId){
-            dispatch(updateSubCategory(currentId, {...subCategoryData, name: user?.result?.name}))
+            dispatch(updateSubCategory(currentId, subCategoryData))
         } else {
             dispatch(createSubCategory({...subCategoryData, name: user?.result?.name}))
         }
@@ -168,7 +171,7 @@ const SubCategories = () => {
                                                         subCategory.categoryId === category._id ? (
                                                             <li className="list-group-item px-0" key={subCategory._id}>
                                                                 <div className="row align-items-center">
-                                                                    <img src={category.selectedFile} style={{width: '50px', borderRadius:'10px'}} alt="user" />
+                                                                    <img src={subCategory.selectedFile} style={{width: '50px', borderRadius:'10px'}} alt="user" />
                                                                     <div className="col ml--2">
                                                                         <h4 className="mb-0">
                                                                             {subCategory.title}

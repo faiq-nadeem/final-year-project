@@ -58,8 +58,14 @@ const Sidebar = () => {
                                                             </li>
                                                             <li className="nav-item">
                                                                 <Link to="/Advisors" className="nav-link">
-                                                                <i className="ni ni-cart text-primary"></i>
+                                                                <i className="ni ni-hat-3 text-primary"></i>
                                                                 <span className="sidenav-normal"> Advisors </span>
+                                                                </Link>
+                                                            </li>
+                                                            <li className="nav-item">
+                                                                <Link to="/Interviewers" className="nav-link">
+                                                                <i className="ni ni-chat-round text-primary"></i>
+                                                                <span className="sidenav-normal"> Interviewers </span>
                                                                 </Link>
                                                             </li>
                                                         </>

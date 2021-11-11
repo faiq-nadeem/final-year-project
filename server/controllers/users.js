@@ -46,14 +46,14 @@ export const signUp = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12)
         const result         = await User.create({
                                                     email, 
-                                                    password: hashedPassword, 
-                                                    name: `${firstName} ${lastName}`,
+                                                    password: hashedPassword,
+                                                    name    : `${firstName} ${lastName}`,
                                                     dob,
                                                     gender,
                                                     userRole,
                                                     userStatus,
                                                     credits,
-                                                    userKey : null,
+                                                    userKey: null,
                                                     selectedFile
                                                 })
         
@@ -98,6 +98,16 @@ export const getSingleUser = async (req, res) => {
 export const getAdvisors = async (req, res) => { 
     try {
         const user = await User.find({ userRole: 'advisor' })
+                
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(404).json({ message: error.message })
+    }
+}
+
+export const getInterviewers = async (req, res) => { 
+    try {
+        const user = await User.find({ userRole: 'interviewer' })
                 
         res.status(200).json(user)
     } catch (error) {
@@ -152,7 +162,8 @@ export const changeUserStatus = async (req, res) => {
 }
 
 export const changeUserRole = async (req, res) => {
-    const { id } = req.params
+    const { id }     = req.params
+    const {userRole} = req.body
 
     res.userId
 
@@ -162,11 +173,45 @@ export const changeUserRole = async (req, res) => {
     
     const user = await User.findById(id)
 
-    if(user.userRole === 'user'){
-        user.userRole = 'advisor'
-    } else{
-        user.userRole = 'user'
-    }
+    user.userRole = userRole
+
+    const updatedUser = await User.findByIdAndUpdate(id, user, { new: true })
+    
+    res.json(updatedUser)
+}
+
+export const changeUserCategory = async (req, res) => {
+    const { id }         = req.params
+    const {userCategory} = req.body
+
+    res.userId
+
+    if(!req.userId) return res.JSON({message: 'Unauthenticated'})
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`)
+    
+    const user = await User.findById(id)
+
+    user.userCategory = userCategory
+
+    const updatedUser = await User.findByIdAndUpdate(id, user, { new: true })
+    
+    res.json(updatedUser)
+}
+
+export const changeUserSubCategory = async (req, res) => {
+    const { id }            = req.params
+    const {userSubCategory} = req.body
+
+    res.userId
+
+    if(!req.userId) return res.JSON({message: 'Unauthenticated'})
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`)
+    
+    const user = await User.findById(id)
+
+    user.userSubCategory = userSubCategory
 
     const updatedUser = await User.findByIdAndUpdate(id, user, { new: true })
     
@@ -174,7 +219,7 @@ export const changeUserRole = async (req, res) => {
 }
 
 export const setUserKey = async (req, res) => {
-    const { id }      = req.params
+    const { id }    = req.params
     const {userKey} = req.body
 
     res.userId

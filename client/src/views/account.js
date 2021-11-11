@@ -7,11 +7,11 @@ import { getSingleUser,updateUser } from '../actions/users'
 
 const Account = () => {
 
-    const dispatch   = useDispatch()
-    const user       = JSON.parse(localStorage.getItem('profile'))
-    const singleUser = useSelector((state) => state.singleUser)
-    const userId     = user?.result?._id
-    
+    const dispatch    = useDispatch()
+    const user        = JSON.parse(localStorage.getItem('profile'))
+    const userProfile = useSelector((state) => state.userProfile)
+    const userId      = user?.result?._id
+
     const [userData, setUserData] = useState({
         name        : '',
         email       : '',
@@ -24,6 +24,14 @@ const Account = () => {
         birthplace  : '',
         selectedFile: ''
     })
+    
+    useEffect(() => {
+        dispatch(getSingleUser(userId))
+    }, [dispatch, userId])
+
+    useEffect(() => {
+        setUserData(userProfile)
+    }, [userProfile])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -53,7 +61,6 @@ const Account = () => {
                     </div>
                 </div>
             </section>
-            <button type="button" onClick={dispatch(getSingleUser(userId))}>get user</button>
 
             <section className="user-setting-section">
                 <div className="container">
@@ -126,46 +133,20 @@ const Account = () => {
                                 <div className="page-title">
                                     Profile Info
                                 </div>
-                                <div className="row">
-                                    <div className="col-lg-6">
-                                        <div className="profile-about-box">
-                                            <div className="top-bg"></div>
-                                            <div className="p-inner-content">
-                                                <div className="profile-img">
-                                                    <img className="height-inherit" src={user?.result?.selectedFile} style={{width:'inherit'}} alt="" />
-                                                    <div className="active-online"></div>
-                                                </div>
-                                            </div>
+                                <div className="profile-about-box">
+                                    <div className="top-bg"></div>
+                                    <div className="p-inner-content">
+                                        <div className="profile-img">
+                                            <img className="height-inherit" src={userData.selectedFile} style={{width:'inherit'}} alt="" />
+                                            <div className="active-online"></div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-6">
-                                        <button className="up-photo-card mb-30 custom-button btn" style={{width:'inherit'}}>
-                                            <div className="icon">
-                                                <i className="fas fa-user"></i>
-                                            </div>
-                                            <div className="content">
-                                                <h4>
-                                                    Change Avatar
-                                                </h4>
-                                                <span style={{color:'thistle'}}>
-                                                    120x120p size minimum
-                                                </span>
-                                            </div>
-                                        </button>
-                                        <button className="up-photo-card custom-button btn" style={{width:'inherit'}}>
-                                            <div className="icon">
-                                                <i className="fas fa-image"></i>
-                                            </div>
-                                            <div className="content">
-                                                <h4>
-                                                    Change Cover
-                                                </h4>
-                                                <span style={{color:'thistle'}}>
-                                                    1200x300p size minimum
-                                                </span>
-                                            </div>
-                                        </button>
-                                    </div>
+                            
+                                    <FileBase
+                                        type="file"
+                                        multiple={false}
+                                        onDone={({base64}) => setUserData({...userData, selectedFile:base64})}
+                                    />
                                 </div>
                                 <div className="input-info-box mt-30">
                                     <div className="header">
@@ -182,49 +163,50 @@ const Account = () => {
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Public Email</label>
-                                                    <input type="text" placeholder="Public Email" value={user?.result?.email}/>
+                                                    <input type="text" placeholder="Public Email" value={userData.email} onChange = {(e) => setUserData({...userData, email: e.target.value})}/>
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="my-input-box">
-                                                    <textarea name="" placeholder="Write a little description about you..."></textarea>
+                                                    <textarea palceholder={userData.message} onChange = {(e) => setUserData({...userData, message: e.target.value})} >{userData.message}</textarea>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Country</label>
-                                                    <select name="" id="">
-                                                        <option value="" disabled selected>Select Country</option>
-                                                        <option value="">United State</option>
+                                                    <select  onChange = {(e) => setUserData({...userData, country: e.target.value})}>
+                                                        <option value="">{userData.country}</option>
+                                                        <option value="">Paksitan</option>
+                                                        <option value="">UnitedStates</option>
+                                                        <option value="">United Kingdom</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">City</label>
-                                                    <select name="" id="">
-                                                        <option value="" disabled selected>Select City</option>
-                                                        <option value="">New Work</option>
+                                                    <select  onChange = {(e) => setUserData({...userData, city: e.target.value})}>
+                                                        <option value="">{userData.city}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Birthday</label>
-                                                    <input type="date" value={user?.result?.dob}/>
+                                                    <input type="date" value={userData.dob} onChange = {(e) => setUserData({...userData, dob: e.target.value})} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Occupation</label>
-                                                    <input type="text" placeholder="Occupation" />
+                                                    <input type="text" value={userData.occupation} onChange = {(e) => setUserData({...userData, occupation: e.target.value})} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Gender</label>
-                                                    <select name="gender" >
-                                                        <option value={user?.result?.gender}>{user?.result?.gender}</option>
+                                                    <select name="gender"  onChange = {(e) => setUserData({...userData, gender: e.target.value})} >
+                                                        <option value={userData.gender}>{userData.gender}</option>
                                                         <option value="">Male</option>
                                                         <option value="">Female</option>
                                                         <option value="">Rather Not Say</option>
@@ -234,7 +216,7 @@ const Account = () => {
                                             <div className="col-md-6">
                                                 <div className="my-input-box">
                                                     <label for="">Birthplace</label>
-                                                    <input type="text" placeholder="Birthplace" />
+                                                    <input type="text" value={userData.birthplace} onChange = {(e) => setUserData({...userData, birthplace: e.target.value})} />
                                                 </div>
                                             </div>
                                         </div>

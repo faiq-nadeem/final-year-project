@@ -31,11 +31,11 @@ export const createBlog = async (req, res) => {
 
 export const updateBlog = async (req, res) => {
     const { id }                                          = req.params
-    const { title, message, creator, selectedFile, tags } = req.body
+    const { title, message, creator, tags, selectedFile } = req.body
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No blog with id: ${id}`)
 
-    const updatedBlog = { creator, title, message, tags, selectedFile, _id: id }
+    const updatedBlog = { title, message, creator, tags, selectedFile, _id: id }
 
     await Blog.findByIdAndUpdate(id, updatedBlog, { new: true })
 

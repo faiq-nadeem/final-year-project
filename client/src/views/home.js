@@ -1,15 +1,20 @@
 import {useDispatch, useSelector} from 'react-redux'
-import React from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment'
 
 import { getBlogs } from '../actions/blogs'
+import { getAdvisors } from '../actions/advisors'
 
 const Home = () => {
 
     const dispatch = useDispatch()
     const blogs    = useSelector((state) => state.blogs)
+    const advisors = useSelector((state) => state.advisors)
     
-    dispatch(getBlogs())
+    useEffect(() => {
+        dispatch(getBlogs())
+        dispatch(getAdvisors())
+    }, [dispatch])
 
     return (
         <div>
@@ -24,16 +29,14 @@ const Home = () => {
                             </h1>
                             <div className="join-now-box wow fadeInUp">
                                 <div className="single-option age">
-                                    <p className="title">
-                                        <ul>
-                                            <li>
-                                            Connect to Experts with proven field experience Get the Skills that you want from an Industry Proven Expert.
-                                            </li>
-                                            <li>
-                                                Boost your productivity and skills with our learning environment
-                                            </li>
-                                        </ul>
-                                    </p>
+                                    <ul className="title">
+                                        <li>
+                                        Connect to Experts with proven field experience Get the Skills that you want from an Industry Proven Expert.
+                                        </li>
+                                        <li>
+                                            Boost your productivity and skills with our learning environment
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div className="joun-button pt-10">
                                     <button className="custom-button">Join Now!</button>
@@ -367,97 +370,34 @@ const Home = () => {
                                         Latest Registered
                                     </h6>
                                     <h2 className="title wow fadeInUp">
-                                        Members
+                                        Advisors
                                     </h2>
                                     <p className="text">
                                     If you have been looking for Career Boosting Skills, 
                                     then your search ends here
                                     </p>
                                 </div>
-                                <a href="link.php" className="custom-button">Join Now !</a>
+                                <a href="link.php" className="custom-button"> See All !</a>
                             </div>
                         </div>
-                        <div className="col-xl-6 align-self-center">
-                            <div className="registered-slider owl-carousel">
+                        <div className="col-xl-6 align-self-center row justify-content-around">
+
+                            { advisors.slice(0, 3).map((advisor) => (
                                 <div className="single-slider">
                                     <div className="img">
-                                        <img src="assets/images/registered/p1.png" alt="" />
+                                        <img src={advisor.selectedFile} alt="" />
                                     </div>
                                     <div className="inner-content">
                                         <h4 className="name">
-                                            Dana Miles
+                                            {advisor.name}
                                         </h4>
                                         <p>
-                                            25 Years Old
+                                            {advisor.email}
                                         </p>
                                     </div>
                                 </div>
-                                <div className="single-slider">
-                                    <div className="img">
-                                        <img src="assets/images/registered/p2.png" alt="" />
-                                    </div>
-                                    <div className="inner-content">
-                                        <h4 className="name">
-                                            Dana Miles
-                                        </h4>
-                                        <p>
-                                            25 Years Old
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="single-slider">
-                                    <div className="img">
-                                        <img src="assets/images/registered/p3.png" alt="" />
-                                    </div>
-                                    <div className="inner-content">
-                                        <h4 className="name">
-                                            Dana Miles
-                                        </h4>
-                                        <p>
-                                            25 Years Old
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="single-slider">
-                                    <div className="img">
-                                        <img src="assets/images/registered/p4.png" alt="" />
-                                    </div>
-                                    <div className="inner-content">
-                                        <h4 className="name">
-                                            Dana Miles
-                                        </h4>
-                                        <p>
-                                            25 Years Old
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="single-slider">
-                                    <div className="img">
-                                        <img src="assets/images/registered/p5.png" alt="" />
-                                    </div>
-                                    <div className="inner-content">
-                                        <h4 className="name">
-                                            Dana Miles
-                                        </h4>
-                                        <p>
-                                            25 Years Old
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="single-slider">
-                                    <div className="img">
-                                        <img src="assets/images/registered/p1.png" alt="" />
-                                    </div>
-                                    <div className="inner-content">
-                                        <h4 className="name">
-                                            Dana Miles
-                                        </h4>
-                                        <p>
-                                            25 Years Old
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
+                                
                         </div>
                     </div>
                 </div>
@@ -484,7 +424,7 @@ const Home = () => {
                     </div>
                     <div className="row">
 
-                        { blogs.map((blog) => (
+                        { blogs.slice(0, 3).map((blog) => (
                             <div className="col-lg-4 col-md-6 pt-4">
                                 <div className="single-story-box wow fadeInUp" data-wow-delay="0.1s">
                                     <div className="img">

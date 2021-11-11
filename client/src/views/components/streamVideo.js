@@ -22,7 +22,7 @@ const VideoPlayer = ({ advisorKey }) => {
                 user?.result?.userRole === 'advisor' && (
                   <div className="form-group">
                     <input className="my-form-control" label="Name" value={user?.result?.name} hidden/>
-                    <button type="button" className="custom-button" onClick={() => dispatch(setUserKey( user?.result?._id, myKey))} >Make Me Live</button>
+                    <button type="button" className="custom-button" onClick={() => dispatch(setUserKey( user?.result?._id, myKey)) } >Make Me Live</button>
                   </div>
                 )
               }

@@ -7,9 +7,11 @@ const Users = () => {
 
     const dispatch = useDispatch()
     const user     = JSON.parse(localStorage.getItem('profile'))
-    const users    = useSelector((state) => state.blogs)
+    const users    = useSelector((state) => state.users)
 
-    dispatch(getUsers())
+    useEffect(() => {
+        dispatch(getUsers())
+    },[dispatch])
 
     if(!user?.result?.name) {
         return(
@@ -69,11 +71,16 @@ const Users = () => {
                                                     <td className="align-middle text-wrap">{user.gender}</td>
                                                     <td className="align-middle text-wrap">{user.credits}</td>
                                                     <td className="align-middle">
-                                                        {user.userRole === 'user' ? (
+                                                        <select className="btn btn-secondary mr-0" onChange={(e) => dispatch(changeUserRole(user._id, {userRole: e.target.value}))}>
+                                                            <option>Select New Role</option>
+                                                            <option value="interviewer">Interviewer</option> 
+                                                            <option value="advisor">Advisor</option>
+                                                        </select>
+                                                        {/* {user.userRole === 'user' ? (
                                                             <button type="button" className="btn btn-secondary mr-0" onClick={() => dispatch(changeUserRole(user._id))}>USER</button>
                                                         ) : (
                                                             <button type="button" className="btn btn-warning mr-0" onClick={() => dispatch(changeUserRole(user._id))}>ADVISOR</button>
-                                                        )}
+                                                        )} */}
                                                     </td>
                                                     <td className="align-middle">
                                                         {user.userStatus === 'active' ? (

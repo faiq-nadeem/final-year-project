@@ -1,4 +1,3 @@
-
 import {useDispatch, useSelector} from 'react-redux'
 import React, {useState, useEffect} from 'react'
 import FileBase from 'react-file-base64'
@@ -24,8 +23,11 @@ const Categories = () => {
 
     useEffect(() => {
         dispatch(getCategories())
+    },[dispatch])
+
+    useEffect(() => {
         if(editCategory) setCategoryData(editCategory)
-    },[editCategory, dispatch])
+    },[editCategory])
     
 
     const handleSubmit = (e) => {

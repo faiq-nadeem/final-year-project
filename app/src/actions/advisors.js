@@ -1,4 +1,4 @@
-import { FETCH_ALL } from "../constants/actionTypes"
+import { FETCH_ALL_ADVISORS } from "../constants/actionTypes"
 import * as api from "../api"
 
 import { loaderStatus } from './loader'
@@ -11,7 +11,7 @@ export const getAdvisors = () => async (dispatch) => {
 		const { data } = await api.fetchAdvisors()
 
 		dispatch({
-			type: FETCH_ALL,
+			type: FETCH_ALL_ADVISORS,
 			payload: data,
 		})
 		

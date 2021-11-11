@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux'
-import React from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment'
 
 import { getBlogs } from '../actions/blogs'
@@ -9,7 +9,10 @@ const About = () => {
     const dispatch = useDispatch()
     const blogs    = useSelector((state) => state.blogs)
     
-    dispatch(getBlogs())
+    useEffect(() => {
+        dispatch(getBlogs())
+    }, [dispatch])
+
     return (
         <div>
             <section className="breadcrumb-area profile-bc-area">

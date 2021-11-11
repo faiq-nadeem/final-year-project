@@ -1,7 +1,17 @@
-import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 
-const Category = () => {
+import { getCategories } from '../actions/categories'
+
+const Categories = () => {
+
+    const dispatch   = useDispatch()
+    const categories = useSelector((state) => state.categories)
+
+    useEffect(() => {
+        dispatch(getCategories())
+    }, [dispatch])
     return (
         <div>
             <section className="breadcrumb-area profile-bc-area">
@@ -142,7 +152,7 @@ const Category = () => {
                                         <div className="filter-main">
                                             
                                             <ul className="nav grid-button tab-menu"   role="tablist">
-                                                <Link to="/Categories" data-toggle="modal" data-target="#exampleModalCenter">
+                                                <Link to="/Advisors" data-toggle="modal" data-target="#exampleModalCenter">
                                                     <i className="fa fa-users"></i>  Back To Community
                                                 </Link> 
                                             </ul>
@@ -183,162 +193,23 @@ const Category = () => {
                             <div className="tab-content" id="pills-tabContent">
                                 <div className="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-gird-tab">
                                     <div className="row">
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/01.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/02.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
+                                        
+                                        {categories.map((category) => (
+                                            <div className="col-lg-4 col-md-6">
+                                                <div className="single-product">
+                                                    <div className="img">
+                                                        <img src={category.selectedFile} alt="" />
+                                                    </div>
+                                                    <div className="content">
+                                                        <h4 className="title">
+                                                            {category.title}
+                                                        </h4>
+                                                        <a className="hover-effect" href="/SubCategories"><span className="font-16-semibold">Explore</span></a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/03.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/04.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/05.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/06.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/07.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/08.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/09.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/10.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/11.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-4 col-md-6">
-                                            <div className="single-product">
-                                                <div className="img">
-                                                    <img src="assets/images/shoping/ShopPage_01/12.jpg" alt="" />
-                                                </div>
-                                                <div className="content">
-                                                    <h4 className="title">
-                                                        Butterfly Rings
-                                                    </h4>
-                                                    <a className="hover-effect" href="single-shope.html"><span className="font-16-semibold">Explore</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        ))}
+
                                     </div>
                                 </div>
                             </div>
@@ -351,4 +222,4 @@ const Category = () => {
     )
 }
 
-export default Category
+export default Categories

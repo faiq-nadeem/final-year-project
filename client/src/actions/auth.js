@@ -1,8 +1,10 @@
 import { AUTH } from '../constants/actionTypes'
 import * as api from '../api'
+import { loaderStatus } from './loader'
 
 export const signIn = (formData, history) => async (dispatch) => {
     try {
+        dispatch(loaderStatus(true))
         const {data} = await api.signIn(formData)
 
         dispatch({
@@ -10,6 +12,8 @@ export const signIn = (formData, history) => async (dispatch) => {
             data
         })
 
+        dispatch(loaderStatus(false))
+        
         if(JSON.stringify(data.message)) alert(JSON.stringify(data.message))
 
         else history.push('/')
@@ -21,6 +25,7 @@ export const signIn = (formData, history) => async (dispatch) => {
 
 export const signUp = (formData, history) => async (dispatch) => {
     try {
+        dispatch(loaderStatus(true))
         const {data} = await api.signUp(formData)
 
         dispatch({
@@ -28,6 +33,7 @@ export const signUp = (formData, history) => async (dispatch) => {
             data
         })
 
+        dispatch(loaderStatus(false))
         if(JSON.stringify(data.message)) alert(JSON.stringify(data.message))
 
         else history.push('/')

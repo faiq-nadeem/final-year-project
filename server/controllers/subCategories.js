@@ -31,11 +31,11 @@ export const createSubCategory = async (req, res) => {
 
 export const updateSubCategory = async (req, res) => {
     const { id }                                          = req.params
-    const { title, message, creator, selectedFile, tags } = req.body
+    const { title, categoryId, message, selectedFile, tags } = req.body
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No subCategory with id: ${id}`)
 
-    const updatedSubCategory = { creator, title, message, tags, selectedFile, _id: id }
+    const updatedSubCategory = { categoryId, title, message, tags, selectedFile, _id: id }
 
     await SubCategory.findByIdAndUpdate(id, updatedSubCategory, { new: true })
 

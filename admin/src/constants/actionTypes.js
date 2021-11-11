@@ -1,8 +1,14 @@
 // contants for Users
-export const FETCH_ALL_USERS = 'FETCH_ALL_USERS'
-export const CREATE_USER     = 'CREATE_USER'
-export const UPDATE_USER     = 'UPDATE_USER'
-export const DELETE_USER     = 'DELETE_USER'
+export const FETCH_ALL_USERS    = 'FETCH_ALL_USERS'
+export const CREATE_USER        = 'CREATE_USER'
+export const UPDATE_USER        = 'UPDATE_USER'
+export const DELETE_USER        = 'DELETE_USER'
+
+// constant for Advisors
+export const FETCH_ALL_ADVISORS = 'FETCH_ALL_ADVISORS'
+
+// constant for advisors
+export const FETCH_ALL_INTERVIEWERS = 'FETCH_ALL_INTERVIEWERS'
 
 // contants for blogs
 export const FETCH_ALL_BLOGS = 'FETCH_ALL_BLOGS'

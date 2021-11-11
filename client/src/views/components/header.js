@@ -55,7 +55,7 @@ const Header = () => {
                                 <Link to="/">Home</Link>
                             </li>
                             <li>
-                                <Link to="/Experts" style={{color:'yellow'}}>Live Experts</Link>
+                                <Link to="/Advisors" style={{color:'yellow'}}>Advisors</Link>
                             </li>
                             <li>
                                 <Link to="/About">About Us</Link>

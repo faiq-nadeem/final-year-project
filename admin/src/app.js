@@ -12,6 +12,7 @@ import Dashboard from './views/dashboard'
 import Categories from './views/categories'
 import SubCategories from './views/subcategories'
 import Advisors from './views/advisors'
+import Interviewers from './views/interviewers'
 import Blogs from './views/blogs'
 import Users from './views/users'
 import PaymentMethod from './views/paymentmethod'
@@ -53,7 +54,7 @@ function App() {
               }}
           />
         }
-      >
+      />
 
         <BrowserRouter>
             
@@ -66,6 +67,7 @@ function App() {
 
                   {user?.result?.userRole !== 'admin' ?  <Route exact path = "/Categories" component    = {Dashboard} /> : <Route path = "/Categories" exact component    = {Categories} />}
                   {user?.result?.userRole !== 'admin' ?  <Route exact path = "/SubCategories" component = {Dashboard} /> : <Route path = "/SubCategories" exact component = {SubCategories} />}
+                  {user?.result?.userRole !== 'admin' ?  <Route exact path = "/Interviewers" component  = {Dashboard} /> : <Route path = "/Interviewers" exact component  = {Interviewers} />}
                   {user?.result?.userRole !== 'admin' ?  <Route exact path = "/Advisors" component      = {Dashboard} /> : <Route path = "/Advisors" exact component      = {Advisors} />}
                   {user?.result?.userRole !== 'admin' ?  <Route exact path = "/Users" component         = {Dashboard} /> : <Route path = "/Users" exact component         = {Users} />}
                   
@@ -79,7 +81,6 @@ function App() {
             <Footer />
 
           </BrowserRouter>
-        </LoadingOverlay>
       </div>
   )
 }

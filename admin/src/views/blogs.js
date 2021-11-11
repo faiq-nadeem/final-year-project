@@ -24,8 +24,11 @@ const Blogs = () => {
 
     useEffect(() => {
         dispatch(getBlogs())
+    },[dispatch])
+
+    useEffect(() => {
         if(editBlog) setBlogData(editBlog)
-    },[editBlog, dispatch])
+    }, [editBlog])
     
 
     const handleSubmit = (e) => {
@@ -155,7 +158,7 @@ const Blogs = () => {
                                             )   
                                         }
 
-                                        <button className="btn btn-link px-0" disabled={!user?.result} onClick={() => dispatch(likeBlog(blog._id))}>
+                                        {/* <button className="btn btn-link px-0" disabled={!user?.result} onClick={() => dispatch(likeBlog(blog._id))}>
                                             {                                                        
                                                 // (blog.likes.length > 0) ? (
                                                 //     blog.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
@@ -168,7 +171,7 @@ const Blogs = () => {
                                                 //     <div>Like</div>
                                                 // )
                                             }
-                                        </button>
+                                        </button> */}
                                         {(user?.result?.googleId === blog?.creator || user?.result?._id === blog?.creator) && (
                                             // <button className="btn btn-link px-20 float-right" onClick={() => dispatch(deleteBlog(blog._id))}>Delete</button>
                                             <button data-toggle="modal" data-target={'#delete' + blog._id} className="btn btn-link px-2 float-right">Delete</button>

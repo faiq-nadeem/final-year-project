@@ -1,6 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
+import {useDispatch, useSelector} from 'react-redux'
+
+import { getCategories } from '../actions/categories'
+import { getBlogs } from '../actions/blogs'
+import { getUsers } from '../actions/users'
+import { getAdvisors } from '../actions/advisors'
 
 const Dashboard = () => {
+    
+    const dispatch   = useDispatch()
+    const categories = useSelector((state) => state.categories)
+    const blogs      = useSelector((state) => state.blogs)
+    const users      = useSelector((state) => state.users)
+    const advisors   = useSelector((state) => state.advisors)
+
+    useEffect(() => {
+        dispatch(getCategories())
+        dispatch(getBlogs())
+        dispatch(getUsers())
+        dispatch(getAdvisors()) 
+    }, [dispatch])
+
     return (
         <div className="Dashboard">
             <div className="bg-primary pb-6">
@@ -28,8 +49,8 @@ const Dashboard = () => {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="card-title text-uppercase text-muted mb-0">Total Products</h5>
-                                            <span className="h2 font-weight-bold mb-0">0</span>
+                                        <h5 className="card-title text-uppercase text-muted mb-0">Total Users</h5>
+                                            <span className="h2 font-weight-bold mb-0">{users.length}</span>
                                     </div>
                                     <div className="col-auto">
                                         <div className="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -46,8 +67,8 @@ const Dashboard = () => {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="card-title text-uppercase text-muted mb-0">Total Orders</h5>
-                                            <span className="h2 font-weight-bold mb-0">0</span>
+                                        <h5 className="card-title text-uppercase text-muted mb-0">Total Advisors</h5>
+                                            <span className="h2 font-weight-bold mb-0">{advisors.length}</span>
                                     </div>
                                     <div className="col-auto">
                                         <div className="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -64,8 +85,8 @@ const Dashboard = () => {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="card-title text-uppercase text-muted mb-0">Total Users</h5>
-                                            <span className="h2 font-weight-bold mb-0">0</span>
+                                        <h5 className="card-title text-uppercase text-muted mb-0">Total Categories</h5>
+                                            <span className="h2 font-weight-bold mb-0">{categories.length}</span>
                                     </div>
                                     <div className="col-auto">
                                         <div className="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -83,7 +104,7 @@ const Dashboard = () => {
                                 <div className="row">
                                     <div className="col">
                                         <h5 className="card-title text-uppercase text-muted mb-0">Total Blogs</h5>
-                                            <span className="h2 font-weight-bold mb-0">0</span>
+                                            <span className="h2 font-weight-bold mb-0">{blogs.length}</span>
                                     </div>
                                     <div className="col-auto">
                                         <div className="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
